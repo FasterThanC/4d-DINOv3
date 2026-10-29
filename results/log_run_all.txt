@@ -1,0 +1,580 @@
+=== batch job started Wed Oct 28 23:00:29 CET 2026, settings: PARALLEL=6
+
+##### 1/4 DINOv3 features for all images  (Wed 23:00)
+RGB percentiles (from folds 1-3): {'low_pct': 1.0, 'high_pct': 99.0, 'low': [-176.0, -119.0, -371.0], 'high': [2462.0, 2037.0, 1778.0], 'bands': ['B4', 'B3', 'B2'], 'cloud_blue_threshold': 2000, 'share_pixels_kept': 0.8551240797500033}
+Loading weights:   0%|          | 0/415 [00:00<?, ?it/s]Loading weights:   4%|▍         | 16/415 [00:00<00:03, 102.33it/s]Loading weights:  42%|████▏     | 176/415 [00:00<00:00, 804.25it/s]Loading weights:  66%|██████▌   | 272/415 [00:00<00:00, 332.79it/s]Loading weights: 100%|██████████| 415/415 [00:00<00:00, 513.43it/s]
+20/2433 series, 860 images, 72.1 img/s
+40/2433 series, 1720 images, 102.3 img/s
+60/2433 series, 2580 images, 118.8 img/s
+80/2433 series, 3440 images, 129.4 img/s
+100/2433 series, 4300 images, 136.7 img/s
+120/2433 series, 5160 images, 142.0 img/s
+140/2433 series, 6020 images, 145.9 img/s
+160/2433 series, 6880 images, 149.0 img/s
+180/2433 series, 7740 images, 151.6 img/s
+200/2433 series, 8600 images, 153.5 img/s
+220/2433 series, 9460 images, 155.3 img/s
+240/2433 series, 10320 images, 156.7 img/s
+260/2433 series, 11180 images, 157.8 img/s
+280/2433 series, 12040 images, 158.8 img/s
+300/2433 series, 12900 images, 159.7 img/s
+320/2433 series, 13760 images, 160.4 img/s
+340/2433 series, 14620 images, 161.1 img/s
+360/2433 series, 15480 images, 161.8 img/s
+380/2433 series, 16340 images, 162.5 img/s
+400/2433 series, 17200 images, 163.0 img/s
+420/2433 series, 18060 images, 163.5 img/s
+440/2433 series, 18920 images, 164.0 img/s
+460/2433 series, 19780 images, 164.4 img/s
+480/2433 series, 20640 images, 164.8 img/s
+500/2433 series, 21500 images, 165.1 img/s
+520/2433 series, 22360 images, 165.4 img/s
+540/2433 series, 23382 images, 165.6 img/s
+560/2433 series, 24602 images, 166.1 img/s
+580/2433 series, 25822 images, 166.5 img/s
+600/2433 series, 27042 images, 166.9 img/s
+620/2433 series, 28262 images, 167.3 img/s
+640/2433 series, 29482 images, 167.6 img/s
+660/2433 series, 30702 images, 167.9 img/s
+680/2433 series, 31922 images, 168.2 img/s
+700/2433 series, 33142 images, 168.4 img/s
+720/2433 series, 34362 images, 168.7 img/s
+740/2433 series, 35582 images, 168.9 img/s
+760/2433 series, 36802 images, 169.1 img/s
+780/2433 series, 38022 images, 169.3 img/s
+800/2433 series, 39242 images, 169.5 img/s
+820/2433 series, 40462 images, 169.7 img/s
+840/2433 series, 41682 images, 169.8 img/s
+860/2433 series, 42902 images, 170.0 img/s
+880/2433 series, 44122 images, 170.1 img/s
+900/2433 series, 45342 images, 170.2 img/s
+920/2433 series, 46562 images, 170.3 img/s
+940/2433 series, 47782 images, 170.4 img/s
+960/2433 series, 49002 images, 170.6 img/s
+980/2433 series, 50222 images, 170.7 img/s
+1000/2433 series, 51442 images, 170.8 img/s
+1020/2433 series, 52662 images, 170.9 img/s
+1040/2433 series, 53882 images, 171.0 img/s
+1060/2433 series, 55102 images, 171.1 img/s
+1080/2433 series, 56322 images, 171.1 img/s
+1100/2433 series, 57542 images, 171.2 img/s
+1120/2433 series, 58762 images, 171.4 img/s
+1140/2433 series, 59982 images, 171.5 img/s
+1160/2433 series, 61112 images, 171.6 img/s
+1180/2433 series, 62032 images, 171.7 img/s
+1200/2433 series, 62952 images, 171.7 img/s
+1220/2433 series, 63872 images, 171.8 img/s
+1240/2433 series, 64792 images, 171.8 img/s
+1260/2433 series, 65712 images, 171.8 img/s
+1280/2433 series, 66632 images, 171.9 img/s
+1300/2433 series, 67552 images, 171.9 img/s
+1320/2433 series, 68472 images, 172.0 img/s
+1340/2433 series, 69392 images, 172.0 img/s
+1360/2433 series, 70312 images, 172.0 img/s
+1380/2433 series, 71232 images, 172.1 img/s
+1400/2433 series, 72152 images, 172.1 img/s
+1420/2433 series, 73072 images, 172.2 img/s
+1440/2433 series, 73992 images, 172.2 img/s
+1460/2433 series, 74912 images, 172.2 img/s
+1480/2433 series, 75832 images, 172.2 img/s
+1500/2433 series, 76752 images, 172.3 img/s
+1520/2433 series, 77672 images, 172.3 img/s
+1540/2433 series, 78592 images, 172.4 img/s
+1560/2433 series, 79512 images, 172.4 img/s
+1580/2433 series, 80432 images, 172.5 img/s
+1600/2433 series, 81352 images, 172.5 img/s
+1620/2433 series, 82272 images, 172.6 img/s
+1640/2433 series, 83192 images, 172.6 img/s
+1660/2433 series, 84112 images, 172.6 img/s
+1680/2433 series, 85032 images, 172.6 img/s
+1700/2433 series, 85952 images, 172.7 img/s
+1720/2433 series, 86872 images, 172.7 img/s
+1740/2433 series, 87792 images, 172.7 img/s
+1760/2433 series, 88712 images, 172.8 img/s
+1780/2433 series, 89632 images, 172.8 img/s
+1800/2433 series, 90552 images, 172.8 img/s
+1820/2433 series, 91472 images, 172.8 img/s
+1840/2433 series, 92392 images, 172.8 img/s
+1860/2433 series, 93312 images, 172.8 img/s
+1880/2433 series, 94208 images, 172.8 img/s
+1900/2433 series, 94968 images, 172.8 img/s
+1920/2433 series, 95728 images, 172.8 img/s
+1940/2433 series, 96488 images, 172.8 img/s
+1960/2433 series, 97248 images, 172.8 img/s
+1980/2433 series, 98008 images, 172.8 img/s
+2000/2433 series, 98768 images, 172.8 img/s
+2020/2433 series, 99528 images, 172.8 img/s
+2040/2433 series, 100288 images, 172.8 img/s
+2060/2433 series, 101048 images, 172.8 img/s
+2080/2433 series, 101808 images, 172.8 img/s
+2100/2433 series, 102568 images, 172.8 img/s
+2120/2433 series, 103328 images, 172.8 img/s
+2140/2433 series, 104088 images, 172.8 img/s
+2160/2433 series, 104848 images, 172.8 img/s
+2180/2433 series, 105608 images, 172.8 img/s
+2200/2433 series, 106368 images, 172.8 img/s
+2220/2433 series, 107128 images, 172.8 img/s
+2240/2433 series, 107888 images, 172.8 img/s
+2260/2433 series, 108648 images, 172.8 img/s
+2280/2433 series, 109408 images, 172.8 img/s
+2300/2433 series, 110168 images, 172.8 img/s
+2320/2433 series, 110928 images, 172.8 img/s
+2340/2433 series, 111688 images, 172.8 img/s
+2360/2433 series, 112448 images, 172.8 img/s
+2380/2433 series, 113208 images, 172.8 img/s
+2400/2433 series, 113968 images, 172.8 img/s
+2420/2433 series, 114728 images, 172.8 img/s
+2433/2433 series, 115222 images, 172.8 img/s
+done: /work/4d-dino-data/features/dinov3_sat
+57G	/work/4d-dino-data/features/dinov3_sat
+== dinov3_sat: 2433 series
+PASS feature + days file for every series   [missing 0: []]
+PASS shape (T, D, 16, 16), T = metadata dates, days = metadata   [[]]
+PASS values finite (no NaN / inf)
+PASS tokens differ between places   [mean std 0.1317]
+PASS tokens differ between dates   [mean std 0.1589]
+WARN 5 pairs of neighbouring dates have identical tokens (same image twice?)
+FEATURE CHECK PASSED
+
+##### 2/4 students 1 and 2 (train + save their tokens)  (Wed 23:11)
+train images: 68786, val images: 4000, teacher dim: 1024
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 13958.96it/s]
+student backbone parameters: 22.3 M
+ep 0 step 100/10740 copy 0.4533 rebuild 1.2239
+ep 0 step 200/10740 copy 0.3351 rebuild 0.2735
+ep 0 step 300/10740 copy 0.3034 rebuild 0.1492
+ep 0 step 400/10740 copy 0.2541 rebuild 0.1853
+ep 0 step 500/10740 copy 0.2562 rebuild 0.1295
+{'epoch': 0, 'step': 537, 'train_copy': 0.37987986209783253, 'train_rebuild': 0.37963241073727827, 'train_cos': 0.7640737257003785, 'val_cos': 0.7592764086723328, 'val_copy': 0.24072359132766724, 'val_rebuild': 0.1454003518819809, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.1410955992937088, 'val_objective': 0.24072359132766724, 'hours': 0.011}
+ep 1 step 600/10740 copy 0.2198 rebuild 0.1625
+ep 1 step 700/10740 copy 0.2018 rebuild 0.1353
+ep 1 step 800/10740 copy 0.2015 rebuild 0.1136
+ep 1 step 900/10740 copy 0.1980 rebuild 0.1122
+ep 1 step 1000/10740 copy 0.1899 rebuild 0.1374
+{'epoch': 1, 'step': 1074, 'train_copy': 0.2061750621602522, 'train_rebuild': 0.11659705894175411, 'train_cos': 0.8157218289375305, 'val_cos': 0.8064882290363312, 'val_copy': 0.1935117709636688, 'val_rebuild': 0.1126055828332901, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.11069189631938935, 'val_objective': 0.1935117709636688, 'hours': 0.02}
+ep 2 step 1100/10740 copy 0.1815 rebuild 0.0824
+ep 2 step 1200/10740 copy 0.1795 rebuild 0.1049
+ep 2 step 1300/10740 copy 0.1763 rebuild 0.0900
+ep 2 step 1400/10740 copy 0.1895 rebuild 0.1061
+ep 2 step 1500/10740 copy 0.1766 rebuild 0.1061
+ep 2 step 1600/10740 copy 0.1754 rebuild 0.0971
+{'epoch': 2, 'step': 1611, 'train_copy': 0.17805655042552415, 'train_rebuild': 0.1069473564985522, 'train_cos': 0.8280298354625701, 'val_cos': 0.8175555834770203, 'val_copy': 0.18244441652297974, 'val_rebuild': 0.10904120600223541, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.10999250048398972, 'val_objective': 0.18244441652297974, 'hours': 0.029}
+ep 3 step 1700/10740 copy 0.1743 rebuild 0.1077
+ep 3 step 1800/10740 copy 0.1706 rebuild 0.0986
+ep 3 step 1900/10740 copy 0.1634 rebuild 0.1009
+ep 3 step 2000/10740 copy 0.1676 rebuild 0.1025
+ep 3 step 2100/10740 copy 0.1622 rebuild 0.1029
+{'epoch': 3, 'step': 2148, 'train_copy': 0.1672448305000362, 'train_rebuild': 0.09717929492283134, 'train_cos': 0.8411641132831573, 'val_cos': 0.8291299984455108, 'val_copy': 0.17087000155448914, 'val_rebuild': 0.1015011522769928, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.10165889674425126, 'val_objective': 0.17087000155448914, 'hours': 0.038}
+ep 4 step 2200/10740 copy 0.1615 rebuild 0.0973
+ep 4 step 2300/10740 copy 0.1621 rebuild 0.0870
+ep 4 step 2400/10740 copy 0.1590 rebuild 0.0995
+ep 4 step 2500/10740 copy 0.1473 rebuild 0.0944
+ep 4 step 2600/10740 copy 0.1553 rebuild 0.0980
+{'epoch': 4, 'step': 2685, 'train_copy': 0.15874687039763347, 'train_rebuild': 0.09174605501985639, 'train_cos': 0.8461859478950501, 'val_cos': 0.833445812702179, 'val_copy': 0.16655418729782104, 'val_rebuild': 0.09148523521423339, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08862656342983245, 'val_objective': 0.16655418729782104, 'hours': 0.047}
+ep 5 step 2700/10740 copy 0.1607 rebuild 0.0824
+ep 5 step 2800/10740 copy 0.1541 rebuild 0.1024
+ep 5 step 2900/10740 copy 0.1479 rebuild 0.1091
+ep 5 step 3000/10740 copy 0.1628 rebuild 0.0826
+ep 5 step 3100/10740 copy 0.1489 rebuild 0.0822
+ep 5 step 3200/10740 copy 0.1477 rebuild 0.0911
+{'epoch': 5, 'step': 3222, 'train_copy': 0.1536467583430324, 'train_rebuild': 0.08492562577849881, 'train_cos': 0.8510604069232941, 'val_cos': 0.8377331813573837, 'val_copy': 0.16226681864261627, 'val_rebuild': 0.09618573766946793, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.09419554018974305, 'val_objective': 0.16226681864261627, 'hours': 0.057}
+ep 6 step 3300/10740 copy 0.1502 rebuild 0.0774
+ep 6 step 3400/10740 copy 0.1453 rebuild 0.0814
+ep 6 step 3500/10740 copy 0.1489 rebuild 0.0884
+ep 6 step 3600/10740 copy 0.1472 rebuild 0.0808
+ep 6 step 3700/10740 copy 0.1476 rebuild 0.0997
+{'epoch': 6, 'step': 3759, 'train_copy': 0.14826921374993174, 'train_rebuild': 0.0922184760649333, 'train_cos': 0.8561157324314117, 'val_cos': 0.8421301910877228, 'val_copy': 0.15786980891227723, 'val_rebuild': 0.10525193083286286, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.10261644846200943, 'val_objective': 0.15786980891227723, 'hours': 0.066}
+ep 7 step 3800/10740 copy 0.1428 rebuild 0.1124
+ep 7 step 3900/10740 copy 0.1409 rebuild 0.0966
+ep 7 step 4000/10740 copy 0.1445 rebuild 0.1307
+ep 7 step 4100/10740 copy 0.1484 rebuild 0.1013
+ep 7 step 4200/10740 copy 0.1469 rebuild 0.0678
+{'epoch': 7, 'step': 4296, 'train_copy': 0.1452159732580185, 'train_rebuild': 0.09191178289732897, 'train_cos': 0.8551796894073487, 'val_cos': 0.8404065763950348, 'val_copy': 0.1595934236049652, 'val_rebuild': 0.09538886469602585, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.09509988689422608, 'val_objective': 0.1595934236049652, 'hours': 0.075}
+ep 8 step 4300/10740 copy 0.1379 rebuild 0.1536
+ep 8 step 4400/10740 copy 0.1458 rebuild 0.0711
+ep 8 step 4500/10740 copy 0.1344 rebuild 0.0851
+ep 8 step 4600/10740 copy 0.1384 rebuild 0.0947
+ep 8 step 4700/10740 copy 0.1388 rebuild 0.0873
+ep 8 step 4800/10740 copy 0.1442 rebuild 0.0879
+{'epoch': 8, 'step': 4833, 'train_copy': 0.14156141533087974, 'train_rebuild': 0.08398366259546253, 'train_cos': 0.8609537087678909, 'val_cos': 0.8451816215515137, 'val_copy': 0.15481837844848634, 'val_rebuild': 0.07978035539388656, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.07702268159389496, 'val_objective': 0.15481837844848634, 'hours': 0.085}
+ep 9 step 4900/10740 copy 0.1408 rebuild 0.0820
+ep 9 step 5000/10740 copy 0.1351 rebuild 0.0948
+ep 9 step 5100/10740 copy 0.1361 rebuild 0.0799
+ep 9 step 5200/10740 copy 0.1388 rebuild 0.0858
+ep 9 step 5300/10740 copy 0.1319 rebuild 0.0842
+{'epoch': 9, 'step': 5370, 'train_copy': 0.13832036232371125, 'train_rebuild': 0.08312957729707217, 'train_cos': 0.8654765796661377, 'val_cos': 0.8499799025058746, 'val_copy': 0.15002009749412537, 'val_rebuild': 0.07473320639133453, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.07289627134799957, 'val_objective': 0.15002009749412537, 'hours': 0.094}
+ep 10 step 5400/10740 copy 0.1383 rebuild 0.0714
+ep 10 step 5500/10740 copy 0.1384 rebuild 0.1011
+ep 10 step 5600/10740 copy 0.1357 rebuild 0.0909
+ep 10 step 5700/10740 copy 0.1354 rebuild 0.0963
+ep 10 step 5800/10740 copy 0.1373 rebuild 0.0909
+ep 10 step 5900/10740 copy 0.1366 rebuild 0.0700
+{'epoch': 10, 'step': 5907, 'train_copy': 0.13588732919435484, 'train_rebuild': 0.08677747468264631, 'train_cos': 0.8678243831396103, 'val_cos': 0.8510630528926849, 'val_copy': 0.14893694710731506, 'val_rebuild': 0.08329321026802063, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08138622903823853, 'val_objective': 0.14893694710731506, 'hours': 0.103}
+ep 11 step 6000/10740 copy 0.1400 rebuild 0.0877
+ep 11 step 6100/10740 copy 0.1330 rebuild 0.0845
+ep 11 step 6200/10740 copy 0.1384 rebuild 0.1030
+ep 11 step 6300/10740 copy 0.1278 rebuild 0.0781
+ep 11 step 6400/10740 copy 0.1434 rebuild 0.0691
+{'epoch': 11, 'step': 6444, 'train_copy': 0.13373580149043648, 'train_rebuild': 0.08199904943700165, 'train_cos': 0.8703862998485565, 'val_cos': 0.8538665702342987, 'val_copy': 0.1461334297657013, 'val_rebuild': 0.08611054611206055, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08578331965208054, 'val_objective': 0.1461334297657013, 'hours': 0.112}
+ep 12 step 6500/10740 copy 0.1293 rebuild 0.1003
+ep 12 step 6600/10740 copy 0.1278 rebuild 0.0909
+ep 12 step 6700/10740 copy 0.1299 rebuild 0.0927
+ep 12 step 6800/10740 copy 0.1368 rebuild 0.0669
+ep 12 step 6900/10740 copy 0.1322 rebuild 0.0834
+{'epoch': 12, 'step': 6981, 'train_copy': 0.1312311185555085, 'train_rebuild': 0.08008395842999719, 'train_cos': 0.8714400985240937, 'val_cos': 0.8544357125759124, 'val_copy': 0.14556428742408753, 'val_rebuild': 0.08000287914276123, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.07762435328960418, 'val_objective': 0.14556428742408753, 'hours': 0.121}
+ep 13 step 7000/10740 copy 0.1215 rebuild 0.0839
+ep 13 step 7100/10740 copy 0.1329 rebuild 0.0734
+ep 13 step 7200/10740 copy 0.1266 rebuild 0.0760
+ep 13 step 7300/10740 copy 0.1293 rebuild 0.0912
+ep 13 step 7400/10740 copy 0.1303 rebuild 0.1001
+ep 13 step 7500/10740 copy 0.1320 rebuild 0.0850
+{'epoch': 13, 'step': 7518, 'train_copy': 0.13028132718479613, 'train_rebuild': 0.08101892517099167, 'train_cos': 0.8730283269882202, 'val_cos': 0.8551869832277298, 'val_copy': 0.1448130167722702, 'val_rebuild': 0.08281522500514985, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08129001939296722, 'val_objective': 0.1448130167722702, 'hours': 0.131}
+ep 14 step 7600/10740 copy 0.1323 rebuild 0.0857
+ep 14 step 7700/10740 copy 0.1334 rebuild 0.0754
+ep 14 step 7800/10740 copy 0.1238 rebuild 0.0716
+ep 14 step 7900/10740 copy 0.1252 rebuild 0.0840
+ep 14 step 8000/10740 copy 0.1290 rebuild 0.0755
+{'epoch': 14, 'step': 8055, 'train_copy': 0.12827675176343883, 'train_rebuild': 0.08014805343009018, 'train_cos': 0.8748274451494217, 'val_cos': 0.8570358166694642, 'val_copy': 0.1429641833305359, 'val_rebuild': 0.08265022993087769, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08070523881912231, 'val_objective': 0.1429641833305359, 'hours': 0.14}
+ep 15 step 8100/10740 copy 0.1234 rebuild 0.0724
+ep 15 step 8200/10740 copy 0.1263 rebuild 0.0767
+ep 15 step 8300/10740 copy 0.1301 rebuild 0.0816
+ep 15 step 8400/10740 copy 0.1299 rebuild 0.0695
+ep 15 step 8500/10740 copy 0.1274 rebuild 0.0757
+{'epoch': 15, 'step': 8592, 'train_copy': 0.1264360114460329, 'train_rebuild': 0.07884993456179203, 'train_cos': 0.8759234327077866, 'val_cos': 0.8581306709051132, 'val_copy': 0.14186932909488678, 'val_rebuild': 0.08229471075534821, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08019181668758392, 'val_objective': 0.14186932909488678, 'hours': 0.149}
+ep 16 step 8600/10740 copy 0.1232 rebuild 0.0904
+ep 16 step 8700/10740 copy 0.1297 rebuild 0.0840
+ep 16 step 8800/10740 copy 0.1219 rebuild 0.0850
+ep 16 step 8900/10740 copy 0.1186 rebuild 0.0859
+ep 16 step 9000/10740 copy 0.1226 rebuild 0.0790
+ep 16 step 9100/10740 copy 0.1297 rebuild 0.0708
+{'epoch': 16, 'step': 9129, 'train_copy': 0.1252983312367061, 'train_rebuild': 0.07803831085756949, 'train_cos': 0.8766148822307587, 'val_cos': 0.8587522139549255, 'val_copy': 0.14124778604507446, 'val_rebuild': 0.07947930240631104, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.07773976916074753, 'val_objective': 0.14124778604507446, 'hours': 0.159}
+ep 17 step 9200/10740 copy 0.1286 rebuild 0.0732
+ep 17 step 9300/10740 copy 0.1255 rebuild 0.0694
+ep 17 step 9400/10740 copy 0.1212 rebuild 0.0676
+ep 17 step 9500/10740 copy 0.1254 rebuild 0.0799
+ep 17 step 9600/10740 copy 0.1274 rebuild 0.0659
+{'epoch': 17, 'step': 9666, 'train_copy': 0.12451404924166269, 'train_rebuild': 0.07881182679833647, 'train_cos': 0.8772859109640121, 'val_cos': 0.8593234779834747, 'val_copy': 0.14067652201652528, 'val_rebuild': 0.08326808100938797, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.0818288654088974, 'val_objective': 0.14067652201652528, 'hours': 0.168}
+ep 18 step 9700/10740 copy 0.1241 rebuild 0.0784
+ep 18 step 9800/10740 copy 0.1196 rebuild 0.0859
+ep 18 step 9900/10740 copy 0.1200 rebuild 0.0826
+ep 18 step 10000/10740 copy 0.1231 rebuild 0.0812
+ep 18 step 10100/10740 copy 0.1265 rebuild 0.0713
+ep 18 step 10200/10740 copy 0.1263 rebuild 0.0735
+{'epoch': 18, 'step': 10203, 'train_copy': 0.1240906200650906, 'train_rebuild': 0.07950246709379848, 'train_cos': 0.8775637879371643, 'val_cos': 0.859656017780304, 'val_copy': 0.14034398221969605, 'val_rebuild': 0.08187464994192123, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08041553246974945, 'val_objective': 0.14034398221969605, 'hours': 0.177}
+ep 19 step 10300/10740 copy 0.1237 rebuild 0.0935
+ep 19 step 10400/10740 copy 0.1258 rebuild 0.0900
+ep 19 step 10500/10740 copy 0.1219 rebuild 0.0722
+ep 19 step 10600/10740 copy 0.1260 rebuild 0.0680
+ep 19 step 10700/10740 copy 0.1235 rebuild 0.0733
+{'epoch': 19, 'step': 10740, 'train_copy': 0.12386225495536012, 'train_rebuild': 0.07900625019155623, 'train_cos': 0.8776231620311737, 'val_cos': 0.8595704514980316, 'val_copy': 0.14042954850196837, 'val_rebuild': 0.08221968740224839, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.08061741811037064, 'val_objective': 0.14042954850196837, 'hours': 0.186}
+finished /work/4d-dino-data/runs/students/student1_copy
+50/2433 series, 392.9 img/s
+100/2433 series, 409.6 img/s
+150/2433 series, 414.4 img/s
+200/2433 series, 415.4 img/s
+250/2433 series, 416.7 img/s
+300/2433 series, 417.1 img/s
+350/2433 series, 418.1 img/s
+400/2433 series, 418.2 img/s
+450/2433 series, 418.1 img/s
+500/2433 series, 417.8 img/s
+550/2433 series, 416.8 img/s
+600/2433 series, 418.4 img/s
+650/2433 series, 420.6 img/s
+700/2433 series, 423.1 img/s
+750/2433 series, 424.7 img/s
+800/2433 series, 425.9 img/s
+850/2433 series, 427.2 img/s
+900/2433 series, 428.5 img/s
+950/2433 series, 429.5 img/s
+1000/2433 series, 430.0 img/s
+1050/2433 series, 430.7 img/s
+1100/2433 series, 431.4 img/s
+1150/2433 series, 431.9 img/s
+1200/2433 series, 430.5 img/s
+1250/2433 series, 429.0 img/s
+1300/2433 series, 427.7 img/s
+1350/2433 series, 426.6 img/s
+1400/2433 series, 425.4 img/s
+1450/2433 series, 424.5 img/s
+1500/2433 series, 423.9 img/s
+1550/2433 series, 423.1 img/s
+1600/2433 series, 422.5 img/s
+1650/2433 series, 422.0 img/s
+1700/2433 series, 421.5 img/s
+1750/2433 series, 421.0 img/s
+1800/2433 series, 420.6 img/s
+1850/2433 series, 420.2 img/s
+1900/2433 series, 419.6 img/s
+1950/2433 series, 419.1 img/s
+2000/2433 series, 418.6 img/s
+2050/2433 series, 418.2 img/s
+2100/2433 series, 417.7 img/s
+2150/2433 series, 417.3 img/s
+2200/2433 series, 416.9 img/s
+2250/2433 series, 416.5 img/s
+2300/2433 series, 416.1 img/s
+2350/2433 series, 415.7 img/s
+2400/2433 series, 415.4 img/s
+2433/2433 series, 415.2 img/s
+done: /work/4d-dino-data/features/student1_copy
+train images: 68786, val images: 4000, teacher dim: 1024
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 16461.41it/s]
+student backbone parameters: 22.3 M
+ep 0 step 100/10740 copy 0.5119 rebuild 1.0373
+ep 0 step 200/10740 copy 0.4118 rebuild 0.1052
+ep 0 step 300/10740 copy 0.3851 rebuild 0.1378
+ep 0 step 400/10740 copy 0.2903 rebuild 0.0513
+ep 0 step 500/10740 copy 0.2753 rebuild 0.0414
+{'epoch': 0, 'step': 537, 'train_copy': 0.42508942751800105, 'train_rebuild': 0.26991818282663044, 'train_cos': 0.7522612898349762, 'val_cos': 0.7479569072723389, 'val_copy': 0.2520430927276611, 'val_rebuild': 0.04119261586666107, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.03974303185939789, 'val_objective': 0.2932357085943222, 'hours': 0.01}
+ep 1 step 600/10740 copy 0.2406 rebuild 0.0420
+ep 1 step 700/10740 copy 0.2155 rebuild 0.0368
+ep 1 step 800/10740 copy 0.2211 rebuild 0.0320
+ep 1 step 900/10740 copy 0.2207 rebuild 0.0258
+ep 1 step 1000/10740 copy 0.2059 rebuild 0.0270
+{'epoch': 1, 'step': 1074, 'train_copy': 0.221157586358113, 'train_rebuild': 0.030722502234012055, 'train_cos': 0.8005596532821655, 'val_cos': 0.7926727175712586, 'val_copy': 0.20732728242874146, 'val_rebuild': 0.023655634060502053, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.022657818108797072, 'val_objective': 0.23098291648924352, 'hours': 0.019}
+ep 2 step 1100/10740 copy 0.1991 rebuild 0.0183
+ep 2 step 1200/10740 copy 0.1948 rebuild 0.0250
+ep 2 step 1300/10740 copy 0.1913 rebuild 0.0205
+ep 2 step 1400/10740 copy 0.2006 rebuild 0.0254
+ep 2 step 1500/10740 copy 0.1902 rebuild 0.0203
+ep 2 step 1600/10740 copy 0.1832 rebuild 0.0222
+{'epoch': 2, 'step': 1611, 'train_copy': 0.1930590405144505, 'train_rebuild': 0.021871815881305122, 'train_cos': 0.8169237731695175, 'val_cos': 0.8077083654403686, 'val_copy': 0.19229163455963136, 'val_rebuild': 0.023683491259813307, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.022840624436736106, 'val_objective': 0.21597512581944467, 'hours': 0.029}
+ep 3 step 1700/10740 copy 0.1873 rebuild 0.0233
+ep 3 step 1800/10740 copy 0.1850 rebuild 0.0236
+ep 3 step 1900/10740 copy 0.1798 rebuild 0.0230
+ep 3 step 2000/10740 copy 0.1864 rebuild 0.0195
+ep 3 step 2100/10740 copy 0.1831 rebuild 0.0206
+{'epoch': 3, 'step': 2148, 'train_copy': 0.18256410687218388, 'train_rebuild': 0.021767391935962093, 'train_cos': 0.8246869906187058, 'val_cos': 0.813813013792038, 'val_copy': 0.18618698620796204, 'val_rebuild': 0.020376638874411584, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.01948619019985199, 'val_objective': 0.2065636250823736, 'hours': 0.038}
+ep 4 step 2200/10740 copy 0.1763 rebuild 0.0186
+ep 4 step 2300/10740 copy 0.1766 rebuild 0.0192
+ep 4 step 2400/10740 copy 0.1741 rebuild 0.0179
+ep 4 step 2500/10740 copy 0.1636 rebuild 0.0199
+ep 4 step 2600/10740 copy 0.1672 rebuild 0.0201
+{'epoch': 4, 'step': 2685, 'train_copy': 0.1740087072332034, 'train_rebuild': 0.019963649467494012, 'train_cos': 0.8321016298532486, 'val_cos': 0.8207687149047852, 'val_copy': 0.17923128509521485, 'val_rebuild': 0.018052573770284654, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.017335001960396768, 'val_objective': 0.1972838588654995, 'hours': 0.048}
+ep 5 step 2700/10740 copy 0.1758 rebuild 0.0171
+ep 5 step 2800/10740 copy 0.1723 rebuild 0.0228
+ep 5 step 2900/10740 copy 0.1618 rebuild 0.0200
+ep 5 step 3000/10740 copy 0.1744 rebuild 0.0190
+ep 5 step 3100/10740 copy 0.1656 rebuild 0.0179
+ep 5 step 3200/10740 copy 0.1627 rebuild 0.0176
+{'epoch': 5, 'step': 3222, 'train_copy': 0.169285861390263, 'train_rebuild': 0.019317925578153223, 'train_cos': 0.837174240231514, 'val_cos': 0.8254093899726868, 'val_copy': 0.17459061002731324, 'val_rebuild': 0.01754283134639263, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.016758841872215272, 'val_objective': 0.19213344137370586, 'hours': 0.057}
+ep 6 step 3300/10740 copy 0.1643 rebuild 0.0148
+ep 6 step 3400/10740 copy 0.1578 rebuild 0.0177
+ep 6 step 3500/10740 copy 0.1661 rebuild 0.0163
+ep 6 step 3600/10740 copy 0.1611 rebuild 0.0165
+ep 6 step 3700/10740 copy 0.1608 rebuild 0.0182
+{'epoch': 6, 'step': 3759, 'train_copy': 0.16336766742794206, 'train_rebuild': 0.01687043434914264, 'train_cos': 0.8427782394886016, 'val_cos': 0.8302505292892456, 'val_copy': 0.16974947071075439, 'val_rebuild': 0.018500672444701195, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.017848501011729242, 'val_objective': 0.18825014315545557, 'hours': 0.066}
+ep 7 step 3800/10740 copy 0.1549 rebuild 0.0198
+ep 7 step 3900/10740 copy 0.1565 rebuild 0.0168
+ep 7 step 4000/10740 copy 0.1568 rebuild 0.0253
+ep 7 step 4100/10740 copy 0.1657 rebuild 0.0142
+ep 7 step 4200/10740 copy 0.1613 rebuild 0.0153
+{'epoch': 7, 'step': 4296, 'train_copy': 0.15896119932111638, 'train_rebuild': 0.016956079166791847, 'train_cos': 0.8459520783424378, 'val_cos': 0.8329638643264771, 'val_copy': 0.16703613567352296, 'val_rebuild': 0.015447052545845509, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.01485684558749199, 'val_objective': 0.18248318821936846, 'hours': 0.076}
+ep 8 step 4300/10740 copy 0.1499 rebuild 0.0149
+ep 8 step 4400/10740 copy 0.1608 rebuild 0.0168
+ep 8 step 4500/10740 copy 0.1453 rebuild 0.0152
+ep 8 step 4600/10740 copy 0.1533 rebuild 0.0283
+ep 8 step 4700/10740 copy 0.1557 rebuild 0.0151
+ep 8 step 4800/10740 copy 0.1573 rebuild 0.0161
+{'epoch': 8, 'step': 4833, 'train_copy': 0.15471014549723328, 'train_rebuild': 0.015275850621515145, 'train_cos': 0.8466011686325073, 'val_cos': 0.8333246777057648, 'val_copy': 0.16667532229423523, 'val_rebuild': 0.014867716804146766, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.014373518988490104, 'val_objective': 0.181543039098382, 'hours': 0.086}
+ep 9 step 4900/10740 copy 0.1570 rebuild 0.0139
+ep 9 step 5000/10740 copy 0.1509 rebuild 0.0140
+ep 9 step 5100/10740 copy 0.1500 rebuild 0.0134
+ep 9 step 5200/10740 copy 0.1512 rebuild 0.0230
+ep 9 step 5300/10740 copy 0.1461 rebuild 0.0143
+{'epoch': 9, 'step': 5370, 'train_copy': 0.15218213483607967, 'train_rebuild': 0.01518728654984267, 'train_cos': 0.8522024855613709, 'val_cos': 0.8385980217456818, 'val_copy': 0.16140197825431823, 'val_rebuild': 0.02122064919769764, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.02011741977930069, 'val_objective': 0.18262262745201588, 'hours': 0.095}
+ep 10 step 5400/10740 copy 0.1498 rebuild 0.0151
+ep 10 step 5500/10740 copy 0.1526 rebuild 0.0164
+ep 10 step 5600/10740 copy 0.1473 rebuild 0.0142
+ep 10 step 5700/10740 copy 0.1458 rebuild 0.0139
+ep 10 step 5800/10740 copy 0.1513 rebuild 0.0124
+ep 10 step 5900/10740 copy 0.1514 rebuild 0.0126
+{'epoch': 10, 'step': 5907, 'train_copy': 0.14952017161544254, 'train_rebuild': 0.015193916099350656, 'train_cos': 0.8533813998699188, 'val_cos': 0.8391894141435623, 'val_copy': 0.16081058585643768, 'val_rebuild': 0.014345896162092685, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.013839009881019592, 'val_objective': 0.17515648201853037, 'hours': 0.105}
+ep 11 step 6000/10740 copy 0.1506 rebuild 0.0138
+ep 11 step 6100/10740 copy 0.1460 rebuild 0.0143
+ep 11 step 6200/10740 copy 0.1537 rebuild 0.0144
+ep 11 step 6300/10740 copy 0.1416 rebuild 0.0131
+ep 11 step 6400/10740 copy 0.1565 rebuild 0.0121
+{'epoch': 11, 'step': 6444, 'train_copy': 0.14721414940761232, 'train_rebuild': 0.01343566023881653, 'train_cos': 0.8557727960348129, 'val_cos': 0.8410394529104233, 'val_copy': 0.15896054708957671, 'val_rebuild': 0.013291607841849327, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.012789297290146351, 'val_objective': 0.17225215493142604, 'hours': 0.114}
+ep 12 step 6500/10740 copy 0.1428 rebuild 0.0188
+ep 12 step 6600/10740 copy 0.1409 rebuild 0.0132
+ep 12 step 6700/10740 copy 0.1399 rebuild 0.0127
+ep 12 step 6800/10740 copy 0.1519 rebuild 0.0148
+ep 12 step 6900/10740 copy 0.1469 rebuild 0.0136
+{'epoch': 12, 'step': 6981, 'train_copy': 0.14473980629133334, 'train_rebuild': 0.013137149411206805, 'train_cos': 0.8577538988590241, 'val_cos': 0.8429160808324814, 'val_copy': 0.15708391916751863, 'val_rebuild': 0.01384867150336504, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.01325780314207077, 'val_objective': 0.17093259067088368, 'hours': 0.124}
+ep 13 step 7000/10740 copy 0.1343 rebuild 0.0158
+ep 13 step 7100/10740 copy 0.1457 rebuild 0.0124
+ep 13 step 7200/10740 copy 0.1391 rebuild 0.0110
+ep 13 step 7300/10740 copy 0.1417 rebuild 0.0127
+ep 13 step 7400/10740 copy 0.1437 rebuild 0.0124
+ep 13 step 7500/10740 copy 0.1436 rebuild 0.0136
+{'epoch': 13, 'step': 7518, 'train_copy': 0.14297410079886794, 'train_rebuild': 0.01296291249896117, 'train_cos': 0.860281127691269, 'val_cos': 0.845172491312027, 'val_copy': 0.15482750868797301, 'val_rebuild': 0.01287179284542799, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.01234552813321352, 'val_objective': 0.167699301533401, 'hours': 0.133}
+ep 14 step 7600/10740 copy 0.1459 rebuild 0.0134
+ep 14 step 7700/10740 copy 0.1457 rebuild 0.0130
+ep 14 step 7800/10740 copy 0.1373 rebuild 0.0123
+ep 14 step 7900/10740 copy 0.1388 rebuild 0.0116
+ep 14 step 8000/10740 copy 0.1430 rebuild 0.0117
+{'epoch': 14, 'step': 8055, 'train_copy': 0.141163079737507, 'train_rebuild': 0.01262167503700021, 'train_cos': 0.8615966110229493, 'val_cos': 0.8463915553092957, 'val_copy': 0.15360844469070434, 'val_rebuild': 0.012746295474469661, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.012279058881103993, 'val_objective': 0.166354740165174, 'hours': 0.143}
+ep 15 step 8100/10740 copy 0.1352 rebuild 0.0115
+ep 15 step 8200/10740 copy 0.1391 rebuild 0.0120
+ep 15 step 8300/10740 copy 0.1445 rebuild 0.0122
+ep 15 step 8400/10740 copy 0.1437 rebuild 0.0113
+ep 15 step 8500/10740 copy 0.1389 rebuild 0.0126
+{'epoch': 15, 'step': 8592, 'train_copy': 0.13998745653771377, 'train_rebuild': 0.011955957238872847, 'train_cos': 0.8626250694990159, 'val_cos': 0.8472606146335602, 'val_copy': 0.15273938536643983, 'val_rebuild': 0.012179262019693852, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.011706477798521518, 'val_objective': 0.16491864738613368, 'hours': 0.153}
+ep 16 step 8600/10740 copy 0.1368 rebuild 0.0109
+ep 16 step 8700/10740 copy 0.1427 rebuild 0.0118
+ep 16 step 8800/10740 copy 0.1355 rebuild 0.0106
+ep 16 step 8900/10740 copy 0.1317 rebuild 0.0119
+ep 16 step 9000/10740 copy 0.1372 rebuild 0.0118
+ep 16 step 9100/10740 copy 0.1432 rebuild 0.0112
+{'epoch': 16, 'step': 9129, 'train_copy': 0.13914588041034712, 'train_rebuild': 0.01159044475341476, 'train_cos': 0.8632387225627899, 'val_cos': 0.847637032866478, 'val_copy': 0.15236296713352204, 'val_rebuild': 0.0119441546946764, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.011473150409758092, 'val_objective': 0.16430712182819845, 'hours': 0.163}
+ep 17 step 9200/10740 copy 0.1422 rebuild 0.0113
+ep 17 step 9300/10740 copy 0.1392 rebuild 0.0117
+ep 17 step 9400/10740 copy 0.1345 rebuild 0.0110
+ep 17 step 9500/10740 copy 0.1389 rebuild 0.0131
+ep 17 step 9600/10740 copy 0.1421 rebuild 0.0105
+{'epoch': 17, 'step': 9666, 'train_copy': 0.13834774616266318, 'train_rebuild': 0.011405607959467162, 'train_cos': 0.8636966738700866, 'val_cos': 0.8480064523220062, 'val_copy': 0.15199354767799378, 'val_rebuild': 0.01184386370331049, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.011359793074429036, 'val_objective': 0.16383741138130425, 'hours': 0.172}
+ep 18 step 9700/10740 copy 0.1377 rebuild 0.0119
+ep 18 step 9800/10740 copy 0.1321 rebuild 0.0113
+ep 18 step 9900/10740 copy 0.1329 rebuild 0.0117
+ep 18 step 10000/10740 copy 0.1375 rebuild 0.0117
+ep 18 step 10100/10740 copy 0.1406 rebuild 0.0112
+ep 18 step 10200/10740 copy 0.1398 rebuild 0.0109
+{'epoch': 18, 'step': 10203, 'train_copy': 0.1379138847858102, 'train_rebuild': 0.011285298857733857, 'train_cos': 0.8640614335536957, 'val_cos': 0.848313325881958, 'val_copy': 0.151686674118042, 'val_rebuild': 0.011795250467956066, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.011317355960607529, 'val_objective': 0.16348192458599806, 'hours': 0.181}
+ep 19 step 10300/10740 copy 0.1377 rebuild 0.0126
+ep 19 step 10400/10740 copy 0.1387 rebuild 0.0115
+ep 19 step 10500/10740 copy 0.1351 rebuild 0.0106
+ep 19 step 10600/10740 copy 0.1398 rebuild 0.0109
+ep 19 step 10700/10740 copy 0.1370 rebuild 0.0110
+{'epoch': 19, 'step': 10740, 'train_copy': 0.13766825174153183, 'train_rebuild': 0.011252706450734503, 'train_cos': 0.8641413655281067, 'val_cos': 0.8484566185474396, 'val_copy': 0.15154338145256044, 'val_rebuild': 0.011778236493468285, 'val_rebuild_zero': 1.0924496479034425, 'train_check_rebuild': 0.011303266316652297, 'val_objective': 0.16332161794602873, 'hours': 0.191}
+finished /work/4d-dino-data/runs/students/student2_rebuild
+50/2433 series, 402.0 img/s
+100/2433 series, 413.3 img/s
+150/2433 series, 417.2 img/s
+200/2433 series, 419.6 img/s
+250/2433 series, 420.4 img/s
+300/2433 series, 420.0 img/s
+350/2433 series, 419.9 img/s
+400/2433 series, 420.2 img/s
+450/2433 series, 420.6 img/s
+500/2433 series, 421.2 img/s
+550/2433 series, 422.1 img/s
+600/2433 series, 424.7 img/s
+650/2433 series, 427.2 img/s
+700/2433 series, 429.0 img/s
+750/2433 series, 430.4 img/s
+800/2433 series, 431.3 img/s
+850/2433 series, 432.4 img/s
+900/2433 series, 433.4 img/s
+950/2433 series, 433.9 img/s
+1000/2433 series, 434.6 img/s
+1050/2433 series, 435.2 img/s
+1100/2433 series, 435.9 img/s
+1150/2433 series, 436.7 img/s
+1200/2433 series, 435.7 img/s
+1250/2433 series, 434.5 img/s
+1300/2433 series, 433.5 img/s
+1350/2433 series, 432.6 img/s
+1400/2433 series, 431.6 img/s
+1450/2433 series, 430.7 img/s
+1500/2433 series, 429.8 img/s
+1550/2433 series, 429.0 img/s
+1600/2433 series, 428.2 img/s
+1650/2433 series, 427.6 img/s
+1700/2433 series, 426.9 img/s
+1750/2433 series, 426.2 img/s
+1800/2433 series, 425.2 img/s
+1850/2433 series, 424.1 img/s
+1900/2433 series, 423.1 img/s
+1950/2433 series, 422.5 img/s
+2000/2433 series, 422.0 img/s
+2050/2433 series, 421.4 img/s
+2100/2433 series, 421.0 img/s
+2150/2433 series, 420.5 img/s
+2200/2433 series, 420.0 img/s
+2250/2433 series, 419.2 img/s
+2300/2433 series, 418.5 img/s
+2350/2433 series, 418.1 img/s
+2400/2433 series, 417.8 img/s
+2433/2433 series, 417.5 img/s
+done: /work/4d-dino-data/features/student2_rebuild
+PASS student 1: log has epochs, no NaN   [20 epochs]
+PASS student 1: best.pt written
+PASS student 1: fold-4 cosine to DINOv3 went up   [0.759 -> 0.860]
+     student 1 last epoch: val cos 0.860, val rebuild MSE 0.082, hours 0.186
+PASS student 2: log has epochs, no NaN   [20 epochs]
+PASS student 2: best.pt written
+PASS student 2: fold-4 cosine to DINOv3 went up   [0.748 -> 0.848]
+     student 2 last epoch: val cos 0.848, val rebuild MSE 0.012, hours 0.191
+PASS student 2 rebuilds the 7 non-RGB bands better than student 1   [0.012 vs 0.082]
+PASS student 2 rebuild error below 'always predict the band average'   [0.012 vs 1.092]
+PASS student 2 still copies DINOv3 (cosine not far below student 1)   [0.848 vs 0.860]
+RUN CHECK PASSED
+== student1_copy: 2433 series
+PASS feature + days file for every series   [missing 0: []]
+PASS shape (T, D, 16, 16), T = metadata dates, days = metadata   [[]]
+PASS values finite (no NaN / inf)
+PASS tokens differ between places   [mean std 0.3395]
+PASS tokens differ between dates   [mean std 0.3131]
+FEATURE CHECK PASSED
+== student2_rebuild: 2433 series
+PASS feature + days file for every series   [missing 0: []]
+PASS shape (T, D, 16, 16), T = metadata dates, days = metadata   [[]]
+PASS values finite (no NaN / inf)
+PASS tokens differ between places   [mean std 0.2237]
+PASS tokens differ between dates   [mean std 0.2171]
+FEATURE CHECK PASSED
+
+##### 3/4 L-TAE runs  (Wed 23:44)
+36 runs, 6 at a time
+features,temporal,dates,labels,n_seeds,test_miou_mean,test_miou_std,test_oa_mean,field_acc_mean
+dinov3_sat,ltae,real,train,3,50.11,0.53,78.29,64.90
+dinov3_sat,ltae,real,train_10,3,36.72,0.43,73.29,58.90
+dinov3_sat,ltae,shuffled,train,3,45.64,0.33,77.25,63.46
+dinov3_sat,ltae,shuffled,train_10,3,33.50,0.22,71.87,55.61
+student1_copy,ltae,real,train,3,49.79,0.56,78.23,64.27
+student1_copy,ltae,real,train_10,3,36.62,0.40,73.22,58.55
+student1_copy,ltae,shuffled,train,3,46.01,0.18,77.38,62.64
+student1_copy,ltae,shuffled,train_10,3,34.28,0.66,72.30,56.73
+student2_rebuild,ltae,real,train,3,51.95,0.31,79.17,65.57
+student2_rebuild,ltae,real,train_10,3,38.98,0.27,73.84,59.05
+student2_rebuild,ltae,shuffled,train,3,48.12,0.13,78.26,63.99
+student2_rebuild,ltae,shuffled,train_10,3,35.82,0.38,73.14,57.97
+saved /work/4d-dino-data/runs/summary_temporal.csv
+finished L-TAE runs: 36
+
+##### 4/4 NDVI probe, benchmark, comparisons  (Thu 00:00)
+collecting fields from 300 train and 300 test patches ...
+train rows 218231, test rows 212019 (cloud-free field-dates)
+NDVI R^2 on fold 5  control_rgb_mean    : 0.013
+NDVI R^2 on fold 5  control_all_bands   : 0.146
+NDVI R^2 on fold 5  dinov3              : 0.043
+NDVI R^2 on fold 5  student1            : 0.038
+NDVI R^2 on fold 5  student2            : 0.047
+saved fig_ndvi_season.png
+grouping ndvi_only           : ARI -0.008  NMI 0.027
+grouping dinov3              : ARI 0.080  NMI 0.244
+grouping student1            : ARI 0.057  NMI 0.186
+grouping student2            : ARI 0.082  NMI 0.226
+saved /work/4d-dino-data/runs/probe/probe_results.json
+Loading weights:   0%|          | 0/415 [00:00<?, ?it/s]Loading weights:  93%|█████████▎| 384/415 [00:00<00:00, 3839.68it/s]Loading weights: 100%|██████████| 415/415 [00:00<00:00, 4036.01it/s]
+{'device': 'NVIDIA B200', 'teacher_params_M': 303.1296, 'student_params_M': 22.284672, 'teacher_img_per_s': 1642.5700868385038, 'student_img_per_s': 7760.481872677258, 'batch': 64, 'speedup': 4.724597102345906}
+mIoU(student2_rebuild__ltae__real__train, 3 seed(s)) - mIoU(student1_copy__ltae__real__train, 3 seed(s)) = 2.15, 95% CI [1.59, 2.66]
+mIoU(student2_rebuild__ltae__real__train, 3 seed(s)) - mIoU(dinov3_sat__ltae__real__train, 3 seed(s)) = 1.84, 95% CI [1.30, 2.42]
+mIoU(student1_copy__ltae__real__train, 3 seed(s)) - mIoU(dinov3_sat__ltae__real__train, 3 seed(s)) = -0.31, 95% CI [-0.87, 0.28]
+mIoU(dinov3_sat__ltae__real__train, 3 seed(s)) - mIoU(dinov3_sat__ltae__shuffled__train, 3 seed(s)) = 4.45, 95% CI [3.71, 5.21]
+mIoU(student1_copy__ltae__real__train, 3 seed(s)) - mIoU(student1_copy__ltae__shuffled__train, 3 seed(s)) = 3.77, 95% CI [3.08, 4.49]
+mIoU(student2_rebuild__ltae__real__train, 3 seed(s)) - mIoU(student2_rebuild__ltae__shuffled__train, 3 seed(s)) = 3.81, 95% CI [3.11, 4.58]
+mIoU gap: (student2_rebuild__ltae__real__train - student2_rebuild__ltae__shuffled__train) - (student1_copy__ltae__real__train - student1_copy__ltae__shuffled__train) = 0.04, 95% CI [-0.55, 0.67]
+mIoU gap: (student2_rebuild__ltae__real__train - student2_rebuild__ltae__shuffled__train) - (dinov3_sat__ltae__real__train - dinov3_sat__ltae__shuffled__train) = -0.64, 95% CI [-1.44, 0.15]
+mIoU(student2_rebuild__ltae__real__train_10, 3 seed(s)) - mIoU(student1_copy__ltae__real__train_10, 3 seed(s)) = 2.37, 95% CI [1.80, 2.91]
+mIoU(student2_rebuild__ltae__real__train_10, 3 seed(s)) - mIoU(dinov3_sat__ltae__real__train_10, 3 seed(s)) = 2.30, 95% CI [1.58, 3.00]
+mIoU(student1_copy__ltae__real__train_10, 3 seed(s)) - mIoU(dinov3_sat__ltae__real__train_10, 3 seed(s)) = -0.07, 95% CI [-0.78, 0.60]
+mIoU(dinov3_sat__ltae__real__train_10, 3 seed(s)) - mIoU(dinov3_sat__ltae__shuffled__train_10, 3 seed(s)) = 3.22, 95% CI [2.62, 3.78]
+mIoU(student1_copy__ltae__real__train_10, 3 seed(s)) - mIoU(student1_copy__ltae__shuffled__train_10, 3 seed(s)) = 2.33, 95% CI [1.84, 2.83]
+mIoU(student2_rebuild__ltae__real__train_10, 3 seed(s)) - mIoU(student2_rebuild__ltae__shuffled__train_10, 3 seed(s)) = 3.18, 95% CI [2.68, 3.67]
+mIoU gap: (student2_rebuild__ltae__real__train_10 - student2_rebuild__ltae__shuffled__train_10) - (student1_copy__ltae__real__train_10 - student1_copy__ltae__shuffled__train_10) = 0.85, 95% CI [0.22, 1.44]
+mIoU gap: (student2_rebuild__ltae__real__train_10 - student2_rebuild__ltae__shuffled__train_10) - (dinov3_sat__ltae__real__train_10 - dinov3_sat__ltae__shuffled__train_10) = -0.03, 95% CI [-0.66, 0.60]
+ALL DONE  (Thu 00:04)
+=== batch job ended Thu Oct 29 00:04:58 CET 2026 with exit code 0 (0 = everything finished)

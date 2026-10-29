@@ -1,0 +1,17 @@
+features,temporal,dates,labels,n_student_seeds,test_miou_mean,test_miou_std_over_student_seeds
+dinov3_sat,ltae,real,train,1,51.58,0.00
+dinov3_sat,ltae,real,train_10,1,36.51,0.00
+dinov3_sat,ltae,shuffled,train,1,49.83,0.00
+dinov3_sat,ltae,shuffled,train_10,1,33.66,0.00
+student1_copy,ltae,real,train,3,51.97,0.16
+student1_copy,ltae,real,train_10,3,36.62,0.20
+student1_copy,ltae,shuffled,train,3,49.37,0.16
+student1_copy,ltae,shuffled,train_10,3,33.96,0.03
+student2_rebuild,ltae,real,train,3,54.37,0.11
+student2_rebuild,ltae,real,train_10,3,38.50,0.24
+student2_rebuild,ltae,shuffled,train,3,51.81,0.33
+student2_rebuild,ltae,shuffled,train_10,3,35.53,0.27
+student3_rebuild_only,ltae,real,train,1,53.95,0.00
+student3_rebuild_only,ltae,real,train_10,1,38.51,0.00
+student3_rebuild_only,ltae,shuffled,train,1,49.78,0.00
+student3_rebuild_only,ltae,shuffled,train_10,1,33.64,0.00

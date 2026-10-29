@@ -1,0 +1,7 @@
+torch>=2.4
+transformers>=4.56      # first version with DINOv3
+huggingface_hub>=0.34   # provides the `hf` command (hf auth login)
+numpy
+scikit-learn
+matplotlib
+zenodo_get              # downloads PASTIS from Zenodo

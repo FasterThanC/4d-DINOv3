@@ -1,0 +1,9 @@
+{
+  "device": "NVIDIA B200",
+  "teacher_params_M": 303.1296,
+  "student_params_M": 22.284672,
+  "teacher_img_per_s": 1642.5700868385038,
+  "student_img_per_s": 7760.481872677258,
+  "batch": 64,
+  "speedup": 4.724597102345906
+}

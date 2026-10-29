@@ -1,0 +1,61 @@
+{
+  "linear_probe_r2": {
+    "control_rgb_mean": 0.8399512767791748,
+    "control_all_bands": 0.9255408644676208,
+    "dinov3": 0.8870969414710999,
+    "student1": 0.8899358510971069,
+    "student2": 0.9383874535560608,
+    "student3": 0.958167552947998
+  },
+  "grouping": {
+    "ndvi_only": {
+      "ARI": 0.21945347323309952,
+      "NMI": 0.40610738355971165,
+      "k": 18,
+      "n_fields": 5276
+    },
+    "dinov3": {
+      "ARI": 0.08531643919302084,
+      "NMI": 0.2397186937115748,
+      "k": 18,
+      "n_fields": 5276
+    },
+    "student1": {
+      "ARI": 0.0663802985438488,
+      "NMI": 0.19811600556223583,
+      "k": 18,
+      "n_fields": 5276
+    },
+    "student2": {
+      "ARI": 0.06711691817834012,
+      "NMI": 0.1966176673992958,
+      "k": 18,
+      "n_fields": 5276
+    },
+    "student3": {
+      "ARI": 0.0712056624226842,
+      "NMI": 0.1697137298228287,
+      "k": 18,
+      "n_fields": 5276
+    }
+  },
+  "settings": {
+    "pastis": "/work/4d-dino-data/PASTIS",
+    "splits": "/work/4d-dino-data/code/splits.json",
+    "out": "/work/4d-dino-data/runs/probe",
+    "feats": [
+      "dinov3=/work/4d-dino-data/features/dinov3_sat",
+      "student1=/work/4d-dino-data/features/student1_copy",
+      "student2=/work/4d-dino-data/features/student2_rebuild",
+      "student3=/work/4d-dino-data/features/student3_rebuild_only"
+    ],
+    "train_patches": 300,
+    "test_patches": 300,
+    "max_fields": 20,
+    "min_pixels": 64,
+    "cloud": 0.2,
+    "min_signal": 0.05,
+    "max_train_rows": 150000,
+    "seed": 0
+  }
+}
