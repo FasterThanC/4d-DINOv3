@@ -127,6 +127,20 @@ Same form as job C, with **Extra options** `RUN=final PARALLEL=8`. It runs `uclo
 `runs/logs/comparisons_final.log`. Before starting it, upload the new code zip and unzip it over
 `code` in a short CPU terminal job: `cd /work/4d-dino-data && unzip -q -o <zip> -d code`.
 
+## 3c. Experiment 1 and the date tests (final round, Nov 5)
+
+Same batch form as job C (1 B200 unless noted), only **Extra options** changes. Upload the current
+code zip and unzip it over `code` first. Every job is restartable (finished runs are skipped).
+
+| Extra options | Script | What it does | Time on 1 B200 |
+| --- | --- | --- | --- |
+| `RUN=exp1 PARALLEL=8` | `ucloud/run_exp1.sh` | Experiment 1 (Time) with our code and the Experiment 2 settings: one date per calendar month (best month on fold 4, then 3 seeds), mean of all / cloud-free dates, L-TAE {all, cloud-free} x {none, position, date, both}, shuffled dates (reused from Experiment 2); table with 95% CIs; attention analysis. Ends with `EXP1 OURS DONE`. | 1 h 05 min |
+| `RUN=reliance` (smallest slice is enough) | `ucloud/run_reliance.sh` | Models trained with real dates, tested with real and with shuffled dates: official pre-trained U-TAE (downloaded from Zenodo 5172293, md5-checked) and our 24 L-TAE runs. Ends with `RELIANCE DONE`. | about 5 min |
+| `RUN=pair1 PARALLEL=6` | `ucloud/run_pair1.sh` | Robustness check: Pair 1's own code (folder `exp1` next to `code`, from `exp1_pair1_code/`) over the same 47 settings, with the L-TAE padding fix (`pair1_kit/`). Ends with `PAIR1 DONE`. | 2 h 42 min |
+
+Results: `runs/exp1_ours/`, `runs/reliance/`, `exp1/runs_final/` (logs in `runs/logs/`).
+The copies used in the report are in `results/` of this repository.
+
 ## 4. Results
 
 All in `4d-dino-data/runs/`:

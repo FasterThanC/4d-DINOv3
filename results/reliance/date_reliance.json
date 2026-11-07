@@ -1,0 +1,81 @@
+{
+  "labels": "train",
+  "note": "models trained with real dates; dates shuffled only at test; mIoU on fold 5; CIs: paired bootstrap over test series, seeds pooled",
+  "rows": [
+    {
+      "model": "U-TAE (pre-trained, 10 bands)",
+      "runs": 1,
+      "miou_real": 62.308485403162095,
+      "miou_shuffled_at_test": 13.989090898198949,
+      "drop": 48.31939450496314,
+      "drop_ci95": [
+        46.494710884906524,
+        50.022354181278985
+      ],
+      "drop_minus_dinov3_drop": 36.359479083228265,
+      "drop_minus_dinov3_drop_ci95": [
+        34.667979528193385,
+        37.84677942246558
+      ]
+    },
+    {
+      "model": "DINOv3 + L-TAE",
+      "runs": 3,
+      "miou_real": 51.58304860146391,
+      "miou_shuffled_at_test": 39.62313317972903,
+      "drop": 11.959915421734877,
+      "drop_ci95": [
+        10.91040476979612,
+        13.084341415050435
+      ]
+    },
+    {
+      "model": "Student 1 (copy) + L-TAE",
+      "runs": 9,
+      "miou_real": 51.965776542982155,
+      "miou_shuffled_at_test": 38.76116739651053,
+      "drop": 13.204609146471626,
+      "drop_ci95": [
+        12.137997672872332,
+        14.245177422311187
+      ],
+      "drop_minus_dinov3_drop": 1.2446937247367487,
+      "drop_minus_dinov3_drop_ci95": [
+        0.5288508803054809,
+        1.944136700890735
+      ]
+    },
+    {
+      "model": "Student 2 (copy + rebuild) + L-TAE",
+      "runs": 9,
+      "miou_real": 54.367837493622815,
+      "miou_shuffled_at_test": 40.42539951246703,
+      "drop": 13.942437981155784,
+      "drop_ci95": [
+        12.872712750829326,
+        15.100586448465249
+      ],
+      "drop_minus_dinov3_drop": 1.9825225594209073,
+      "drop_minus_dinov3_drop_ci95": [
+        1.168174227686118,
+        2.7412649961000124
+      ]
+    },
+    {
+      "model": "Student 3 (rebuild only) + L-TAE",
+      "runs": 3,
+      "miou_real": 53.9571006287356,
+      "miou_shuffled_at_test": 27.218454396536345,
+      "drop": 26.738646232199258,
+      "drop_ci95": [
+        25.31113342627837,
+        28.188192695453328
+      ],
+      "drop_minus_dinov3_drop": 14.778730810464381,
+      "drop_minus_dinov3_drop_ci95": [
+        13.553261344315002,
+        15.955703064652148
+      ]
+    }
+  ]
+}

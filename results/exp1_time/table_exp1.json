@@ -1,0 +1,181 @@
+{
+ "settings": {
+  "single": "dinov3_sat__mean-cal07__none__train",
+  "mean_all": "dinov3_sat__mean__none__train",
+  "mean_clear": "dinov3_sat__mean-cloudfree__none__train",
+  "ltae_all_none": "dinov3_sat__ltae__none__train",
+  "ltae_all_position": "dinov3_sat__ltae__position__train",
+  "ltae_all_date": "dinov3_sat__ltae__real__train",
+  "ltae_all_both": "dinov3_sat__ltae__both__train",
+  "ltae_clear_none": "dinov3_sat__ltae-cloudfree__none__train",
+  "ltae_clear_position": "dinov3_sat__ltae-cloudfree__position__train",
+  "ltae_clear_date": "dinov3_sat__ltae-cloudfree__real__train",
+  "ltae_clear_both": "dinov3_sat__ltae-cloudfree__both__train",
+  "ltae_all_shuffled": "dinov3_sat__ltae__shuffled__train"
+ },
+ "best_month": 7,
+ "differences": {
+  "time series vs one date": {
+   "a": "dinov3_sat__mean__none__train",
+   "b": "dinov3_sat__mean-cal07__none__train",
+   "point": 6.651451464890695,
+   "ci95": [
+    5.633729016097963,
+    7.709214382966889
+   ],
+   "mean_of_seed_means": 6.6684232023585395
+  },
+  "removing clouds (mean)": {
+   "a": "dinov3_sat__mean-cloudfree__none__train",
+   "b": "dinov3_sat__mean__none__train",
+   "point": 0.8588997864840167,
+   "ci95": [
+    0.4064800211320451,
+    1.3317077484026858
+   ],
+   "mean_of_seed_means": 0.8295052672078143
+  },
+  "attention beyond cloud removal (L-TAE all, no time vs mean of cloud-free)": {
+   "a": "dinov3_sat__ltae__none__train",
+   "b": "dinov3_sat__mean-cloudfree__none__train",
+   "point": 12.8138288381395,
+   "ci95": [
+    11.841124841142129,
+    13.789566972461657
+   ],
+   "mean_of_seed_means": 12.832263328075783
+  },
+  "order (all dates)": {
+   "a": "dinov3_sat__ltae__position__train",
+   "b": "dinov3_sat__ltae__none__train",
+   "point": 1.1963011537709036,
+   "ci95": [
+    0.608411294179997,
+    1.7666916776685677
+   ],
+   "mean_of_seed_means": 1.2124301939931144
+  },
+  "calendar date beyond order (all)": {
+   "a": "dinov3_sat__ltae__real__train",
+   "b": "dinov3_sat__ltae__position__train",
+   "point": 0.5621287228154799,
+   "ci95": [
+    0.10941848272065223,
+    1.0134323019539533
+   ],
+   "mean_of_seed_means": 0.5590213833858897
+  },
+  "order (clear dates)": {
+   "a": "dinov3_sat__ltae-cloudfree__position__train",
+   "b": "dinov3_sat__ltae-cloudfree__none__train",
+   "point": 0.46024320689340925,
+   "ci95": [
+    -0.00022804398729938215,
+    0.9045002265636484
+   ],
+   "mean_of_seed_means": 0.4569503056884514
+  },
+  "calendar date beyond order (clear)": {
+   "a": "dinov3_sat__ltae-cloudfree__real__train",
+   "b": "dinov3_sat__ltae-cloudfree__position__train",
+   "point": 1.6993591524299205,
+   "ci95": [
+    1.201767377033069,
+    2.195682792087624
+   ],
+   "mean_of_seed_means": 1.7041753673859006
+  },
+  "real vs shuffled dates (all)": {
+   "a": "dinov3_sat__ltae__real__train",
+   "b": "dinov3_sat__ltae__shuffled__train",
+   "point": 1.7591610696613458,
+   "ci95": [
+    1.2421698870623605,
+    2.2710988972100172
+   ],
+   "mean_of_seed_means": 1.7580551298543696
+  },
+  "removing clouds (L-TAE, date)": {
+   "a": "dinov3_sat__ltae-cloudfree__real__train",
+   "b": "dinov3_sat__ltae__real__train",
+   "point": -0.2767035483660081,
+   "ci95": [
+    -0.7294723429405806,
+    0.2023669269757292
+   ],
+   "mean_of_seed_means": -0.2751624691395804
+  },
+  "L-TAE (all, date) vs one date": {
+   "a": "dinov3_sat__ltae__real__train",
+   "b": "dinov3_sat__mean-cal07__none__train",
+   "point": 22.082609966100595,
+   "ci95": [
+    20.71110520839487,
+    23.30566038484544
+   ],
+   "mean_of_seed_means": 22.10164337502114
+  }
+ },
+ "table": {
+  "single": {
+   "mean": 29.482807322892754,
+   "std": 0.07383130800429259,
+   "n": 3.0
+  },
+  "mean_all": {
+   "mean": 36.15123052525129,
+   "std": 0.3824264444608897,
+   "n": 3.0
+  },
+  "mean_clear": {
+   "mean": 36.98073579245911,
+   "std": 0.11835498697467296,
+   "n": 3.0
+  },
+  "ltae_all_none": {
+   "mean": 49.81299912053489,
+   "std": 0.22780686882654508,
+   "n": 3.0
+  },
+  "ltae_all_position": {
+   "mean": 51.025429314528004,
+   "std": 0.14300431144377862,
+   "n": 3.0
+  },
+  "ltae_all_date": {
+   "mean": 51.584450697913894,
+   "std": 0.21191666259228265,
+   "n": 3.0
+  },
+  "ltae_all_both": {
+   "mean": 51.42713217798016,
+   "std": 0.03293829794846649,
+   "n": 3.0
+  },
+  "ltae_clear_none": {
+   "mean": 49.14816255569996,
+   "std": 0.12863404085797622,
+   "n": 3.0
+  },
+  "ltae_clear_position": {
+   "mean": 49.60511286138841,
+   "std": 0.4931256220979537,
+   "n": 3.0
+  },
+  "ltae_clear_date": {
+   "mean": 51.309288228774314,
+   "std": 0.3927117254932848,
+   "n": 3.0
+  },
+  "ltae_clear_both": {
+   "mean": 50.57944672214222,
+   "std": 0.5073897656808707,
+   "n": 3.0
+  },
+  "ltae_all_shuffled": {
+   "mean": 49.826395568059525,
+   "std": 0.3678815215555926,
+   "n": 3.0
+  }
+ }
+}

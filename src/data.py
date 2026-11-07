@@ -16,6 +16,8 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+from .clouds import select_dates
+from .temporal import PACK
 from .pastis import NON_RGB_IDX, load_parcels, load_s2, load_target
 
 
@@ -27,11 +29,19 @@ class FeatureSeriesDataset(Dataset):
     """Returns dict(x=(T, D, h, w) float16, days=(T,), y=(128,128), parcels=(128,128), pid)."""
 
     def __init__(self, feat_dir, pastis_dir, ids, meta, train=False, max_dates=32,
-                 date_mode="real", cache_ram=False, with_parcels=False, seed=0):
-        assert date_mode in ("real", "shuffled", "none")
+                 date_mode="real", cache_ram=False, with_parcels=False, seed=0,
+                 select="all", clouds=None, month=None, max_cloud=0.1, min_dates=1, pos_scale=10.0):
+        # real: acquisition days | shuffled: days permuted | none: no time input
+        # position: order k of the image among the series' selected dates, as k * pos_scale
+        # both: position and day packed as k * pos_scale * PACK + day (unpacked by the L-TAE)
+        assert date_mode in ("real", "shuffled", "none", "position", "both")
         self.feat_dir, self.pastis_dir = feat_dir, pastis_dir
         self.ids, self.meta = list(ids), meta
         self.train, self.max_dates, self.date_mode = train, max_dates, date_mode
+        # which dates each series uses: all, cloud-free only, or one date (see src/clouds.py)
+        self.select, self.clouds, self.month, self.max_cloud = select, clouds, month, max_cloud
+        self.min_dates, self.pos_scale = min_dates, pos_scale
+        assert select == "all" or clouds is not None, "cloud shares needed for date selection"
         self.with_parcels, self.seed = with_parcels, seed
         self.cache = {}
         self.targets = {pid: load_target(pastis_dir, pid) for pid in self.ids}
@@ -50,10 +60,17 @@ class FeatureSeriesDataset(Dataset):
         days = self.meta[pid]["days"].astype(np.float32)
         T = feats.shape[0]
         assert T == len(days), f"patch {pid}: {T} feature dates vs {len(days)} metadata dates"
-        if self.train and self.max_dates and T > self.max_dates:
-            keep = torch.randperm(T)[: self.max_dates].sort().values.numpy()
+        if self.select == "all":
+            avail = np.arange(T)
         else:
-            keep = np.arange(T)
+            avail = select_dates(days, self.clouds[pid], self.select, self.month, self.max_cloud,
+                                 self.min_dates)
+        order = np.arange(len(avail))            # position of each selected date in the series
+        if self.train and self.max_dates and len(avail) > self.max_dates:
+            sub = np.sort(torch.randperm(len(avail))[: self.max_dates].numpy())
+            keep, order = avail[sub], order[sub]
+        else:
+            keep = avail
         x = torch.from_numpy(np.ascontiguousarray(feats[keep]))
         days = days[keep]
         if self.date_mode == "shuffled":
@@ -65,6 +82,10 @@ class FeatureSeriesDataset(Dataset):
             days = days[perm]
         elif self.date_mode == "none":
             days = np.zeros_like(days)
+        elif self.date_mode == "position":
+            days = (order * self.pos_scale).astype(np.float32)
+        elif self.date_mode == "both":
+            days = (order * self.pos_scale * PACK + days).astype(np.float32)
         out = {"x": x, "days": torch.from_numpy(days), "y": torch.from_numpy(self.targets[pid]),
                "pid": pid}
         if self.with_parcels:

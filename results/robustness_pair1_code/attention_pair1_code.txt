@@ -1,0 +1,4 @@
+relative attention, clear dates:  1.17
+relative attention, cloudy dates: 0.27
+Spearman(attention, cloud fraction): -0.44
+saved runs_final/ltae_all_date_s0/attn_test.png

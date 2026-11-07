@@ -68,6 +68,16 @@ pad[:, 7:] = True
 check("padded dates have no effect",
       (m1(x, days, pad) - m1(torch.cat([x[:, :7], torch.randn(2, 2, 64, 4, 4)], 1), days, pad)).abs().max() < 1e-4)
 
+# 6b. date selection for the Time baselines (cloud-free dates, one date per month)
+from src.clouds import month_index, select_dates  # noqa: E402
+dd = np.array([16, 40, 70, 250, 255, 260, 421])            # days since Sept 1, 2018
+cc = np.array([.5, .0, .2, .3, .05, .0, .9])               # cloud shares
+check("month index: day 0 = Sept 2018, day 250 = May 2019", month_index(0) == 0 and month_index(250) == 8)
+check("cloud-free dates", list(select_dates(dd, cc, "cloudfree")) == [1, 4, 5])
+check("one date: least cloudy in the month", list(select_dates(dd, cc, "single", month=8)) == [5])
+check("one date: closest date if the month is empty", list(select_dates(dd, cc, "single", month=4)) == [2])
+check("no cloud-free date: least cloudy one", list(select_dates(dd, np.ones(7), "cloudfree")) == [0])
+
 # 7. student: a head trained on detached tokens does not change the backbone
 try:
     from transformers import DINOv3ViTConfig, DINOv3ViTModel

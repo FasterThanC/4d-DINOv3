@@ -29,6 +29,27 @@ class PositionalEncoder(nn.Module):
         return out.repeat(1, 1, self.repeat)
 
 
+PACK = 10000.0   # date_mode "both": position and day arrive packed as pos * PACK + day
+
+
+class BothEncoder(nn.Module):
+    """Time input "both" (Experiment 1 design): in every head, half of the dimensions encode
+    the position of the image, half its acquisition day. Input: pos * PACK + day (exact in
+    float32 while pos * PACK < 2**24, i.e. fewer than ~160 images at pos_scale 10)."""
+
+    def __init__(self, d_head, T=1000, repeat=1):
+        super().__init__()
+        self.pos = PositionalEncoder(d_head // 2, T=T)
+        self.day = PositionalEncoder(d_head - d_head // 2, T=T)
+        self.repeat = repeat
+
+    def forward(self, packed):
+        pos = torch.div(packed, PACK, rounding_mode="floor")
+        day = packed - pos * PACK
+        one = torch.cat([self.pos(pos), self.day(day)], dim=-1)
+        return one.repeat(1, 1, self.repeat)
+
+
 def masked_group_norm(v, gn, valid=None):
     """GroupNorm over (channels in group x dates) that ignores padded dates.
 
@@ -56,13 +77,14 @@ class LTAE(nn.Module):
     """Input (B, T, C, h, w) -> output (B, mlp[-1], h, w). pad_mask (B, T) is True for padded dates."""
 
     def __init__(self, in_channels, d_model=256, n_head=16, d_k=4, mlp=(256, 128),
-                 dropout=0.2, T=1000, use_dates=True, return_att=False):
+                 dropout=0.2, T=1000, use_dates=True, return_att=False, time_enc="date"):
         super().__init__()
         assert mlp[0] == d_model and d_model % n_head == 0 and in_channels % n_head == 0
         self.n_head, self.d_k, self.return_att = n_head, d_k, return_att
         self.in_norm = nn.GroupNorm(n_head, in_channels)
         self.inconv = nn.Linear(in_channels, d_model)
-        self.pos = PositionalEncoder(d_model // n_head, T=T, repeat=n_head) if use_dates else None
+        enc = BothEncoder if time_enc == "both" else PositionalEncoder
+        self.pos = enc(d_model // n_head, T=T, repeat=n_head) if use_dates else None
         self.Q = nn.Parameter(torch.randn(n_head, d_k) * math.sqrt(2.0 / d_k))
         self.fc_k = nn.Linear(d_model, n_head * d_k)
         nn.init.normal_(self.fc_k.weight, mean=0, std=math.sqrt(2.0 / d_k))
@@ -139,10 +161,12 @@ class Decoder(nn.Module):
 
 
 class SegModel(nn.Module):
-    def __init__(self, in_channels, temporal="ltae", num_classes=19, use_dates=True):
+    def __init__(self, in_channels, temporal="ltae", num_classes=19, use_dates=True, time_enc="date",
+                 return_att=False):
         super().__init__()
+        self.return_att = return_att and temporal == "ltae"
         if temporal == "ltae":
-            self.temporal = LTAE(in_channels, use_dates=use_dates)
+            self.temporal = LTAE(in_channels, use_dates=use_dates, time_enc=time_enc, return_att=self.return_att)
         elif temporal == "mean":
             self.temporal = MeanPool(in_channels)
         else:
@@ -150,4 +174,7 @@ class SegModel(nn.Module):
         self.decoder = Decoder(128, num_classes)
 
     def forward(self, x, days, pad_mask=None):
+        if self.return_att:                      # (logits, attention (heads, B, h, w, T))
+            z, att = self.temporal(x, days, pad_mask)
+            return self.decoder(z), att
         return self.decoder(self.temporal(x, days, pad_mask))

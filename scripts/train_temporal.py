@@ -7,6 +7,7 @@ Works for any feature folder (DINOv3, student 1, student 2, ...).
 
 --train-split  train (100%), train_50 or train_10 (fixed subsets from splits.json)
 --dates        real | shuffled (each image gets another image's date) | none (no dates at all)
+               | position (only the order of the images, k * --pos-scale) | both (order and date)
 --temporal     ltae | mean
 
 All runs use the same number of optimisation steps (--steps), so 10% and 100% get the same
@@ -37,8 +38,17 @@ ap.add_argument("--splits", required=True)
 ap.add_argument("--out", required=True)
 ap.add_argument("--name", default="", help="run name (default: built from the settings)")
 ap.add_argument("--train-split", default="train")
-ap.add_argument("--dates", default="real", choices=["real", "shuffled", "none"])
+ap.add_argument("--dates", default="real", choices=["real", "shuffled", "none", "position", "both"])
 ap.add_argument("--temporal", default="ltae", choices=["ltae", "mean"])
+ap.add_argument("--select", default="all", choices=["all", "cloudfree", "single", "calmonth"],
+                help="dates used per series: all, cloud-free only, or one date in --month "
+                     "(single: 0 = Sept 2018 ... 14 = Nov 2019; calmonth: calendar month 1-12)")
+ap.add_argument("--month", type=int, default=None, help="for --select single / calmonth")
+ap.add_argument("--max-cloud", type=float, default=0.1,
+                help="a date is cloud-free if at most this share of pixels has blue > 0.2")
+ap.add_argument("--min-dates", type=int, default=1, help="cloudfree: keep at least this many (least cloudy) dates")
+ap.add_argument("--pos-scale", type=float, default=10.0, help="position/both: image k is encoded as k * pos_scale")
+ap.add_argument("--clouds", default="", help="cloud-share file (default: <feats>/../cloud_fractions.npz)")
 ap.add_argument("--max-dates", type=int, default=32, help="random dates per series in training")
 ap.add_argument("--steps", type=int, default=5000)
 ap.add_argument("--batch", type=int, default=8)
@@ -52,7 +62,11 @@ ap.add_argument("--device", default="auto")
 a = ap.parse_args()
 
 feat_name = os.path.basename(os.path.normpath(a.feats))
-name = a.name or f"{feat_name}__{a.temporal}__{a.dates}__{a.train_split}__s{a.seed}"
+assert a.select not in ("single", "calmonth") or a.month is not None, "--select single/calmonth needs --month"
+assert a.temporal == "ltae" or a.dates == "none", "the mean baseline uses no dates: give --dates none"
+tname = a.temporal + {"all": "", "cloudfree": "-cloudfree", "single": f"-month{a.month or 0:02d}",
+                      "calmonth": f"-cal{a.month or 0:02d}"}[a.select]
+name = a.name or f"{feat_name}__{tname}__{a.dates}__{a.train_split}__s{a.seed}"
 run_dir = os.path.join(a.out, name)
 os.makedirs(run_dir, exist_ok=True)
 if os.path.exists(os.path.join(run_dir, "results.json")):
@@ -64,12 +78,19 @@ device = get_device(a.device)
 meta = load_metadata(a.pastis)
 splits = load_splits(a.splits)
 
+clouds = None
+if a.select != "all":
+    from src.clouds import cloud_fractions  # noqa: E402
+    clouds = cloud_fractions(a.pastis, meta, a.clouds or os.path.join(os.path.dirname(
+        os.path.normpath(a.feats)), "cloud_fractions.npz"))
+sel = dict(select=a.select, clouds=clouds, month=a.month, max_cloud=a.max_cloud, min_dates=a.min_dates,
+           pos_scale=a.pos_scale)
 train_ds = FeatureSeriesDataset(a.feats, a.pastis, splits[a.train_split], meta, train=True,
                                 max_dates=a.max_dates, date_mode=a.dates, cache_ram=a.cache_ram,
-                                seed=a.seed)
-val_ds = FeatureSeriesDataset(a.feats, a.pastis, splits["val"], meta, date_mode=a.dates, seed=a.seed)
+                                seed=a.seed, **sel)
+val_ds = FeatureSeriesDataset(a.feats, a.pastis, splits["val"], meta, date_mode=a.dates, seed=a.seed, **sel)
 test_ds = FeatureSeriesDataset(a.feats, a.pastis, splits["test"], meta, date_mode=a.dates,
-                               with_parcels=True, seed=a.seed)
+                               with_parcels=True, seed=a.seed, **sel)
 in_dim = train_ds[0]["x"].shape[1]
 kw = dict(num_workers=a.workers, collate_fn=pad_collate, pin_memory=device.type == "cuda")
 train_dl = DataLoader(train_ds, batch_size=a.batch, shuffle=True, drop_last=len(train_ds) > a.batch,
@@ -77,7 +98,7 @@ train_dl = DataLoader(train_ds, batch_size=a.batch, shuffle=True, drop_last=len(
 eval_kw = dict(batch_size=max(1, a.batch // 2), shuffle=False, **kw)
 
 model = SegModel(in_dim, temporal=a.temporal, num_classes=NUM_CLASSES,
-                 use_dates=a.dates != "none").to(device)
+                 use_dates=a.dates != "none", time_enc="both" if a.dates == "both" else "date").to(device)
 opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=a.wd)
 warm = max(1, int(0.05 * a.steps))
 sched = torch.optim.lr_scheduler.LambdaLR(
@@ -155,7 +176,8 @@ cms, pids = t.pop("_per_patch")
 np.savez_compressed(os.path.join(run_dir, "test_confusions.npz"), cms=cms, pids=pids)
 results = {
     "run": name, "features": os.path.abspath(a.feats), "feature_name": feat_name,
-    "train_split": a.train_split, "dates": a.dates, "temporal": a.temporal, "seed": a.seed,
+    "train_split": a.train_split, "dates": a.dates, "temporal": tname, "select": a.select,
+    "month": a.month, "max_cloud": a.max_cloud, "min_dates": a.min_dates, "seed": a.seed,
     "val_miou_best": best, "test_miou": t["miou"], "test_oa": t["oa"],
     "test_field_acc": t["field_acc"], "test_n_fields": t["n_fields"],
     "test_iou_per_class": dict(zip(CLASS_NAMES[:NUM_CLASSES], t["iou_per_class"])),

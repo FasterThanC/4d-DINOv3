@@ -1,0 +1,72 @@
+=== batch job started Thu Nov  5 04:31:35 CET 2026, settings: RUN=pair1 PARALLEL=6
+mode: fresh
+settings used for every new run: --lr 0.003 --epochs 80 --bs 16 --wd 0.01 --cloudy_frac 0.2 --min_dates 8 --pos_scale 10.0
+##### 1/4 cloud fractions (written next to the features, as Pair 1's data.py expects)
+0/2433
+200/2433
+400/2433
+600/2433
+800/2433
+1000/2433
+1200/2433
+1400/2433
+1600/2433
+1800/2433
+2000/2433
+2200/2433
+2400/2433
+dates: 115222
+  share of dates with cloud fraction > 0.05: 0.247
+  share of dates with cloud fraction > 0.10: 0.222
+  share of dates with cloud fraction > 0.20: 0.194
+  share of dates with cloud fraction > 0.30: 0.173
+  share of dates with cloud fraction > 0.50: 0.142
+  share of dates with cloud fraction > 0.90: 0.087
+##### 2/4 whole grid with the padding fix (Pair 1's own results: compare later with compare_official.py)
+##### 3/4 verdict FRESH: complete the grid (finished runs are skipped)
+best single-date month on fold 4: 7
+##### 4/4 final table (runs_final: single/mean from runs_masked, L-TAE from runs_masked)
+runs in the final table: 47
+PASS all 45 + best-month runs present
+
+## Baselines (test mIoU, fold 5)
+| Single date (m07, chosen on val) | 30.8 ± 0.4 (n=3) |
+| Mean of all dates | 37.5 ± 0.2 (n=3) |
+| Mean of cloud-free dates | 37.6 ± 0.2 (n=3) |
+
+## L-TAE grid (test mIoU)
+| | none | position | date | both |
+|---|---|---|---|---|
+| all dates | 51.1 ± 0.4 (n=3) | 52.6 ± 0.2 (n=3) | 52.9 ± 0.2 (n=3) | 52.8 ± 0.3 (n=3) |
+| clear dates | 51.3 ± 0.2 (n=3) | 51.9 ± 0.1 (n=3) | 52.8 ± 0.2 (n=3) | 52.6 ± 0.1 (n=3) |
+
+Shuffled dates (all): 51.1 ± 0.4 (n=3)
+
+## Key differences (test mIoU points)
+- time series vs one date: +6.7
+- removing clouds (mean): +0.0
+- attention beyond cloud removal: +13.6
+- order (all dates): +1.4
+- calendar date beyond order (all): +0.3
+- order (clear dates): +0.6
+- calendar date beyond order (clear): +0.9
+
+## Single date by month (val / test)
+  single_m01: 15.4 / 16.4
+  single_m02: 20.0 / 19.8
+  single_m03: 19.5 / 19.8
+  single_m04: 25.0 / 24.7
+  single_m05: 20.5 / 20.9
+  single_m06: 28.0 / 28.6
+  single_m07: 31.1 / 30.8
+  single_m08: 25.1 / 26.2
+  single_m09: 15.1 / 14.7
+  single_m10: 15.2 / 14.9
+  single_m11: 15.3 / 15.4
+  single_m12: 13.4 / 13.9
+relative attention, clear dates:  1.17
+relative attention, cloudy dates: 0.27
+Spearman(attention, cloud fraction): -0.44
+saved runs_final/ltae_all_date_s0/attn_test.png
+PAIR1 DONE (FRESH)
+=== batch job ended Thu Nov  5 07:13:53 CET 2026 with exit code 0 (0 = everything finished)

@@ -2,7 +2,7 @@
 # For a UCloud *batch* job: select this file in the Terminal app's "Batch processing" field.
 # The job ends by itself when the run finishes, so no GPU hours are used after that.
 # Settings can be given in the "Extra options" field as KEY=VALUE, e.g.:   PARALLEL=6
-# Second round:  RUN=final PARALLEL=8   (runs ucloud/run_final.sh)
+# Second round:  RUN=final PARALLEL=8   (runs ucloud/run_final.sh); Experiment 1 in our code: RUN=exp1 PARALLEL=8
 # Log: /work/4d-dino-data/runs/logs/run_all.log or run_final.log (open it in the UCloud file browser)
 for kv in "$@"; do
   if [[ "$kv" =~ ^[A-Z_][A-Z0-9_]*=.*$ ]]; then export "$kv"; fi

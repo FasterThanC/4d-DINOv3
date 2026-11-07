@@ -1,0 +1,59 @@
+=== batch job started Thu Nov  5 04:07:35 CET 2026, settings: RUN=reliance
+bash: /work/4d-dino-data/code/ucloud/run_reliance.sh: No such file or directory
+=== batch job ended Thu Nov  5 04:07:35 CET 2026 with exit code 127 (0 = everything finished)
+=== batch job started Thu Nov  5 04:19:35 CET 2026, settings: RUN=reliance
+
+##### 1/4 official U-TAE code and pre-trained weights  (Thu 04:19)
+U-TAE code at commit 987874e
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 55.0M    0 49980    0     0   192k      0  0:04:52 --:--:--  0:04:52  192k  6 55.0M    6 3686k    0     0  2960k      0  0:00:19  0:00:01  0:00:18 2958k 12 55.0M   12 6966k    0     0  3107k      0  0:00:18  0:00:02  0:00:16 3107k 18 55.0M   18 10.1M    0     0  3193k      0  0:00:17  0:00:03  0:00:14 3192k 23 55.0M   23 13.0M    0     0  3153k      0  0:00:17  0:00:04  0:00:13 3153k 29 55.0M   29 16.1M    0     0  3145k      0  0:00:17  0:00:05  0:00:12 3295k 34 55.0M   34 19.1M    0     0  3134k      0  0:00:17  0:00:06  0:00:11 3177k 40 55.0M   40 22.0M    0     0  3119k      0  0:00:18  0:00:07  0:00:11 3124k 45 55.0M   45 24.9M    0     0  3106k      0  0:00:18  0:00:08  0:00:10 3049k 50 55.0M   50 27.9M    0     0  3093k      0  0:00:18  0:00:09  0:00:09 3042k 56 55.0M   56 31.0M    0     0  3105k      0  0:00:18  0:00:10  0:00:08 3062k 62 55.0M   62 34.4M    0     0  3133k      0  0:00:18  0:00:11  0:00:07 3131k 82 55.0M   82 45.4M    0     0  3807k      0  0:00:14  0:00:12  0:00:02 4805k100 55.0M  100 55.0M    0     0  4570k      0  0:00:12  0:00:12 --:--:-- 7514k
+/work/4d-dino-data/utae_weights/UATE_zenodo/conf.json
+/work/4d-dino-data/utae_weights/UATE_zenodo/Fold_1/model.pth.tar
+
+##### 2/4 U-TAE pre-trained: real vs shuffled dates on fold 5  (Thu 04:19)
+weights: /work/4d-dino-data/utae_weights/UATE_zenodo/Fold_1/model.pth.tar | config: /work/4d-dino-data/utae_weights/UATE_zenodo/conf.json
+100/496: real 50.52, shuffled 10.09
+200/496: real 58.27, shuffled 12.55
+300/496: real 60.96, shuffled 13.26
+400/496: real 61.58, shuffled 13.71
+U-TAE pretrained (Fold_1) on fold 5: real 62.31, shuffled at test 13.99, drop 48.32
+saved /work/4d-dino-data/runs/reliance/utae_pretrained.npz
+
+##### 3/4 our L-TAE runs (real dates, 100% labels): real vs shuffled dates at test  (Thu 04:22)
+dinov3_sat__ltae__real__train__s0: real 51.61 (results.json 51.61), shuffled at test 40.04, drop 11.58
+dinov3_sat__ltae__real__train__s1: real 51.83 (results.json 51.83), shuffled at test 39.29, drop 12.54
+dinov3_sat__ltae__real__train__s2: real 51.31 (results.json 51.31), shuffled at test 39.56, drop 11.75
+student1_copy__ltae__real__train__s0: real 52.59 (results.json 52.59), shuffled at test 37.92, drop 14.66
+student1_copy__ltae__real__train__s1: real 51.96 (results.json 51.96), shuffled at test 40.01, drop 11.96
+student1_copy__ltae__real__train__s2: real 51.77 (results.json 51.77), shuffled at test 38.53, drop 13.24
+student1_copy_s1__ltae__real__train__s0: real 52.30 (results.json 52.30), shuffled at test 36.66, drop 15.64
+student1_copy_s1__ltae__real__train__s1: real 51.76 (results.json 51.76), shuffled at test 41.27, drop 10.50
+student1_copy_s1__ltae__real__train__s2: real 51.17 (results.json 51.17), shuffled at test 39.12, drop 12.05
+student1_copy_s2__ltae__real__train__s0: real 52.33 (results.json 52.33), shuffled at test 37.09, drop 15.23
+student1_copy_s2__ltae__real__train__s1: real 51.37 (results.json 51.37), shuffled at test 38.72, drop 12.65
+student1_copy_s2__ltae__real__train__s2: real 52.52 (results.json 52.52), shuffled at test 39.65, drop 12.86
+student2_rebuild__ltae__real__train__s0: real 54.48 (results.json 54.48), shuffled at test 40.03, drop 14.45
+student2_rebuild__ltae__real__train__s1: real 54.48 (results.json 54.48), shuffled at test 42.32, drop 12.15
+student2_rebuild__ltae__real__train__s2: real 54.60 (results.json 54.60), shuffled at test 40.65, drop 13.95
+student2_rebuild_s1__ltae__real__train__s0: real 54.44 (results.json 54.44), shuffled at test 39.76, drop 14.69
+student2_rebuild_s1__ltae__real__train__s1: real 54.03 (results.json 54.03), shuffled at test 41.11, drop 12.92
+student2_rebuild_s1__ltae__real__train__s2: real 54.49 (results.json 54.49), shuffled at test 40.17, drop 14.31
+student2_rebuild_s2__ltae__real__train__s0: real 54.86 (results.json 54.86), shuffled at test 39.37, drop 15.49
+student2_rebuild_s2__ltae__real__train__s1: real 53.63 (results.json 53.63), shuffled at test 40.69, drop 12.94
+student2_rebuild_s2__ltae__real__train__s2: real 54.33 (results.json 54.33), shuffled at test 39.84, drop 14.49
+student3_rebuild_only__ltae__real__train__s0: real 54.09 (results.json 54.09), shuffled at test 24.31, drop 29.78
+student3_rebuild_only__ltae__real__train__s1: real 53.93 (results.json 53.93), shuffled at test 27.68, drop 26.25
+student3_rebuild_only__ltae__real__train__s2: real 53.84 (results.json 53.84), shuffled at test 29.71, drop 24.13
+saved /work/4d-dino-data/runs/reliance
+
+##### 4/4 table  (Thu 04:24)
+model                                  runs   real shuffled          drop [95% CI]    drop - DINOv3 drop [95% CI]
+U-TAE (pre-trained, 10 bands)             1  62.31    13.99  48.32 [46.49, 50.02]           36.36 [34.67, 37.85]
+DINOv3 + L-TAE                            3  51.58    39.62  11.96 [10.91, 13.08]                               
+Student 1 (copy) + L-TAE                  9  51.97    38.76  13.20 [12.14, 14.25]              1.24 [0.53, 1.94]
+Student 2 (copy + rebuild) + L-TAE        9  54.37    40.43  13.94 [12.87, 15.10]              1.98 [1.17, 2.74]
+Student 3 (rebuild only) + L-TAE          3  53.96    27.22  26.74 [25.31, 28.19]           14.78 [13.55, 15.96]
+saved /work/4d-dino-data/runs/reliance/date_reliance.json
+RELIANCE DONE  (Thu 04:24)
+=== batch job ended Thu Nov  5 04:24:39 CET 2026 with exit code 0 (0 = everything finished)
