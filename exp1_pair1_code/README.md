@@ -10,7 +10,9 @@
 | `run_grid.py` | The full grid, spread over GPUs and machines. Skips finished runs. |
 | `collect.py` | Results tables + the key differences. |
 | `predict.py` | Predicted crop maps from a trained run (`save`), and a picture comparing runs (`compare`). |
-| `src/backbones/ltae.py`, `positional_encoding.py` | Official L-TAE (`LTAE2d`) from github.com/VSainteuf/utae-paps (MIT), unchanged. |
+| `tune_grid.py` | Learning rate × epochs sweep for `ltae_all_date`, seed 0, on fold 4 (step 3). |
+| `run_all.sh`, `predict_all.sh` | The UCloud jobs we used (whole grid with lr 3e-3 and 80 epochs; prediction maps). They contain fixed paths under `/work/ATDL_A3/`: change them before use. |
+| `src/backbones/ltae.py`, `positional_encoding.py` | Official L-TAE (`LTAE2d`) from github.com/VSainteuf/utae-paps (MIT), unchanged in this folder. |
 | `attention_analysis.py` | Attention vs cloud fraction and vs month, from a run's `attn_test.json`. |
 
 ## Steps
@@ -28,7 +30,7 @@ python train.py --pastis /data/PASTIS --feat_dir /data/feats --out smoke \
 
 # 3. tune lr / epochs ONCE on fold 4 with ltae_all_date, then freeze them for every run
 
-# 4. full grid (67 runs), e.g. 3 machines
+# 4. full grid (43 runs; then 2 more with --single_best = 45), e.g. 3 machines
 python run_grid.py --pastis /data/PASTIS --feat_dir /data/feats --shard 0 --nshards 3   # machine 0
 python run_grid.py --pastis /data/PASTIS --feat_dir /data/feats --shard 1 --nshards 3   # machine 1
 python run_grid.py --pastis /data/PASTIS --feat_dir /data/feats --shard 2 --nshards 3   # machine 2
@@ -50,5 +52,18 @@ python attention_analysis.py runs/ltae_all_date_s0/attn_test.json
 - mIoU over classes 0–18 (void = 19 ignored), as in U-TAE.
 
 ## Grid
-Per seed (0, 1, 2): 12 single-date months, mean all, mean clear,
+Seed 0: 12 single-date months. Per seed (0, 1, 2): mean all, mean clear,
 L-TAE {all, clear} × {none, position, date, both}. Plus shuffled dates, seed 0.
+Then `run_grid.py --single_best`: the best month on fold 4 with seeds 1 and 2.
+In total 12 + 3 × 10 + 1 + 2 = 45 runs.
+
+## How this code is used in this repository
+The final Experiment 1 numbers (Table 1 in the main README) come from `ucloud/run_exp1.sh`, which
+runs this design with the shared L-TAE code. This folder is used only for the robustness run
+(`ucloud/run_pair1.sh`, batch `RUN=pair1`):
+- the folder is copied to `$DATA_DIR/exp1` (`mkdir -p $DATA_DIR/exp1 && cp -r exp1_pair1_code/. $DATA_DIR/exp1/`),
+  so the commands above that say `exp1/` mean that copy;
+- `run_pair1.sh` copies `pair1_kit/ltae.py` over `src/backbones/ltae.py` (the original is kept as
+  `ltae_official_backup.py`) and turns on its fix: the first GroupNorm ignores padded dates;
+- it runs the same 45 runs with lr 3e-3, 80 epochs, batch 16, plus shuffled dates with seeds 1 and 2
+  (47 runs).

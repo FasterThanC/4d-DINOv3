@@ -1,5 +1,9 @@
 # For Pair 1: get the code, the DINOv3 embeddings and our results
 
+> Written on Oct 29, before Experiment 1 was moved into this code. The final Experiment 1 runs come
+> from `ucloud/run_exp1.sh` (batch `RUN=exp1`), see the README. This guide is kept for the
+> embeddings steps.
+
 UCloud cannot share folders from the course project, so you make the same embeddings yourselves.
 It takes about 1.5 hours of waiting (mostly the PASTIS download) and about 0.3 GPU-hours.
 The scripts check at the end that your embeddings and splits are identical to ours.
@@ -22,7 +26,7 @@ The scripts check at the end that your embeddings and splits are identical to ou
    Folder #1 = `4d-dino-data`. In the terminal:
    ```bash
    cd /work/4d-dino-data
-   unzip -q -o 4d-dino-code-*.zip -d code      # or: git clone <repo url> code
+   git clone https://github.com/FasterThanC/4d-DINOv3.git code   # or unzip an uploaded code ZIP
    cd code
    bash ucloud/00_setup.sh                       # ends with "FAIL no usable GPU": normal on CPU
    source ucloud/config.sh && hf auth login      # paste the token when asked (NOT after the command)
@@ -47,9 +51,10 @@ cd /work/4d-dino-data/code && source ucloud/config.sh
 python scripts/train_temporal.py --pastis $PASTIS --feats $FEATS/dinov3_sat --splits $SPLITS \
   --out $RUNS/pair1 --steps 15000 --temporal mean --dates none --train-split train --seed 0
 ```
-- Options already there: `--temporal ltae|mean`, `--dates real|shuffled|none`,
-  `--train-split train|train_10|train_50`, `--seed`. Add your own (single date, mean of cloud-free
-  dates) as new options in the same script.
+- Options: `--temporal ltae|mean`, `--dates real|shuffled|none|position|both`,
+  `--select all|cloudfree|calmonth --month M` (with `--max-cloud 0.2 --min-dates 8` for cloud-free),
+  `--train-split train|train_10|train_50`, `--seed`. The whole Experiment 1 grid is
+  `ucloud/run_exp1.sh`.
 - Many runs at once: `FEATSETS=dinov3_sat STEPS=15000 TEMPORAL_OUT=$RUNS/pair1 PARALLEL=8 bash ucloud/04_temporal_runs.sh`.
 - Tables and 95% CIs: `python scripts/summarize.py --runs $RUNS/pair1` and `--compare A B`
   (see the top of `scripts/summarize.py`).

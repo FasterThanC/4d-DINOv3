@@ -1,16 +1,18 @@
-"""Builds results/ALL_NUMBERS.md: every number of the project, computed from the raw per-run files.
+"""Builds results/ALL_NUMBERS.md: every number of the project, computed from the files in results/.
 
-Sources (all copies of what the UCloud jobs wrote):
-  E2   per-run results.json of the Experiment 2 L-TAE runs (96)            --exp2
-  E1   per-run results.json of the final Experiment 1 runs (47)            --exp1
-  P1   per-run result.json of the Pair 1-code rerun (47)                   --pair1
-  plus the comparison files written by the jobs (CIs), the NDVI probe json,
-  benchmark json, reliance json, attention json, student log.csv files.
+Reads only files that are in this repository (written by scripts/collect_results.py from the
+UCloud run folders):
+  results/exp2_runs.json                             the 96 Experiment 2 L-TAE runs
+  results/exp1_time/exp1_runs.json                   the 47 final Experiment 1 runs
+  results/robustness_pair1_code/pair1_code_runs.json the 47 runs of Pair 1's code
+  plus final_comparisons.txt (CIs), table_exp1.json (CIs), the NDVI probe json, benchmark json,
+  reliance json and log, attention json and student_training_log.csv.
 Nothing here is typed in by hand except text; every number is read or computed.
+
+    python scripts/make_numbers_reference.py            # rewrites results/ALL_NUMBERS.md
 """
 import argparse
 import csv
-import glob
 import json
 import os
 import re
@@ -19,15 +21,11 @@ from collections import defaultdict
 import numpy as np
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--exp2", required=True)
-ap.add_argument("--exp1", required=True)
-ap.add_argument("--pair1", required=True)
-ap.add_argument("--students", required=True)
-ap.add_argument("--results", required=True, help="results/ folder (comparisons, probe, benchmark)")
-ap.add_argument("--reliance", required=True)
-ap.add_argument("--reliance-log", required=True)
-ap.add_argument("--out", required=True)
+ap.add_argument("--results", default=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results"))
+ap.add_argument("--out", default="", help="default: <results>/ALL_NUMBERS.md")
 a = ap.parse_args()
+RES = lambda *p: os.path.join(a.results, *p)  # noqa: E731
+a.out = a.out or RES("ALL_NUMBERS.md")
 L = []
 w = L.append
 f1 = lambda x: f"{x:.1f}"  # noqa: E731
@@ -35,8 +33,7 @@ f2 = lambda x: f"{x:.2f}"  # noqa: E731
 
 # ---------------- Experiment 2 ----------------
 E2 = defaultdict(list)
-for f in glob.glob(os.path.join(a.exp2, "*.json")):
-    r = json.load(open(f))
+for r in json.load(open(RES("exp2_runs.json"))):
     E2[re.sub(r"__s\d$", "", r["run"])].append(r)
 assert sum(len(v) for v in E2.values()) == 96
 S = {"DINOv3-SAT ViT-L (frozen)": ["dinov3_sat"],
@@ -52,7 +49,7 @@ def e2(prefixes, dates, lab, field="test_miou"):
     return np.mean([r[field] for r in runs]), np.std(per_student), np.std([r[field] for r in runs]), len(runs)
 
 
-comp = open(os.path.join(a.results, "final_comparisons.txt")).read()
+comp = open(RES("final_comparisons.txt")).read()
 
 
 def ci(pattern):
@@ -67,18 +64,17 @@ def fci(t):
     return f"{t[0]:+.2f} [{t[1]:+.2f}, {t[2]:+.2f}]"
 
 
-probe = json.load(open(os.path.join(a.results, "ndvi_probe_results.json")))
-bench = json.load(open(os.path.join(a.results, "benchmark.json")))
-rel = json.load(open(a.reliance))
+probe = json.load(open(RES("ndvi_probe_results.json")))
+bench = json.load(open(RES("benchmark.json")))
+rel = json.load(open(RES("reliance", "date_reliance.json")))
 
 # ---------------- Experiment 1 (final, our code) ----------------
 E1 = defaultdict(list)
-for f in glob.glob(os.path.join(a.exp1, "*", "results.json")):
-    r = json.load(open(f))
+for r in json.load(open(RES("exp1_time", "exp1_runs.json"))):
     E1[re.sub(r"__s\d+$", "", r["run"])].append(r)
 assert sum(len(v) for v in E1.values()) == 47
-t1 = json.load(open(os.path.join(a.exp1, "table_exp1_ours.json")))
-att = json.load(open(os.path.join(a.exp1, "attention", "attention_exp1.json")))
+t1 = json.load(open(RES("exp1_time", "table_exp1.json")))
+att = json.load(open(RES("exp1_time", "attention_exp1.json")))
 
 
 def e1(key):
@@ -102,16 +98,34 @@ assert abs(M1["all date"][0] - e2(["dinov3_sat"], "real", "train")[0]) < 1e-9
 assert abs(M1["shuffled"][0] - e2(["dinov3_sat"], "shuffled", "train")[0]) < 1e-9
 D1 = t1["differences"]
 
+
+def _seed_mean(pat):
+    ks = [k for k in E2 if re.fullmatch(pat.replace("*", ".*"), k)]
+    assert ks, pat
+    return np.mean([r["test_miou"] for k in ks for r in E2[k]])
+
+
+# how far the pooled differences (CI points) are from the differences of the seed means
+GAP = {"t1": max(abs(v["mean_of_seed_means"] - v["point"]) for v in D1.values()), "train": 0.0, "train_10": 0.0}
+for line in comp.splitlines():
+    lab = "train_10" if "train_10" in line else "train"
+    m = re.match(r"mIoU\((\S+), \d+ seed\(s\)\) - mIoU\((\S+), \d+ seed\(s\)\) = (-?[\d.]+)", line)
+    if m:
+        GAP[lab] = max(GAP[lab], abs(_seed_mean(m.group(1)) - _seed_mean(m.group(2)) - float(m.group(3))))
+    m = re.match(r"mIoU gap: \((\S+) - (\S+)\) - \((\S+) - (\S+)\) = (-?[\d.]+)", line)
+    if m:
+        d = (_seed_mean(m.group(1)) - _seed_mean(m.group(2))) - (_seed_mean(m.group(3)) - _seed_mean(m.group(4)))
+        GAP[lab] = max(GAP[lab], abs(d - float(m.group(5))))
+
 # ---------------- Pair 1-code rerun ----------------
 P1 = defaultdict(list)
-for f in glob.glob(os.path.join(a.pair1, "*", "result.json")):
-    d = json.load(open(f))
-    P1[re.sub(r"_s\d$", "", os.path.basename(os.path.dirname(f)))].append(d)
+for d in json.load(open(RES("robustness_pair1_code", "pair1_code_runs.json"))):
+    P1[re.sub(r"_s\d$", "", d["run"])].append(d)
 assert sum(len(v) for v in P1.values()) == 47
 
 
 def p1(k):
-    v = [d["test"]["mIoU"] for d in P1[k]]
+    v = [d["test_miou"] for d in P1[k]]
     return np.mean(v), np.std(v), len(v)
 
 
@@ -124,7 +138,8 @@ fmt = lambda t: f"{t[0]:.1f} ± {t[1]:.1f}"  # noqa: E731
 w("# All numbers of the project (reference for writing the report)")
 w("")
 w("Generated by `scripts/make_numbers_reference.py` from the raw per-run result files that the UCloud")
-w("jobs wrote (not typed by hand). Checked three ways (see the last section). Test set = PASTIS fold 5.")
+w("jobs wrote (not typed by hand). The per-run files are collected in `exp2_runs.json`,")
+w("`exp1_time/exp1_runs.json` and `robustness_pair1_code/pair1_code_runs.json`. Checked three ways (see the last section). Test set = PASTIS fold 5.")
 w("")
 w("## 0. How to read the numbers")
 w("")
@@ -133,8 +148,9 @@ w("  ignored. Same formula as U-TAE. **OA** = overall pixel accuracy (void ignor
 w("- **mean ± std**: std is over seeds, population std (`np.std`, ddof = 0) in every table of this")
 w("  project (our code and Pair 1's code). With ddof = 1 it would be about 1.22× larger.")
 w("- **95% CI**: paired bootstrap over the 496 test series (1000 resamples, seed 0). Seeds are pooled by")
-w("  summing their confusion matrices, so the CI point (\"pooled\") can differ by ±0.05 from the")
-w("  difference of the seed means. Use the CI line when you give a CI, the table means otherwise.")
+w("  summing their confusion matrices, so the CI point (\"pooled\") is not always equal to the")
+w(f"  difference of the seed means: at most {GAP['t1']:.2f} apart in Table 1, {GAP['train']:.2f} in Table 2 with 100% labels,")
+w(f"  {GAP['train_10']:.2f} with 10% labels. Use the CI line when you give a CI, the table means otherwise.")
 w("- Rounding: tables to 1 decimal, differences to 2 decimals (or 1 in text).")
 w("- Two meanings of \"shuffled dates\" — keep them apart in the text:")
 w("  1. **trained with shuffled dates** (Tables 1 and 2): each image gets another image's date in")
@@ -260,9 +276,12 @@ w("")
 w("| student | training | cosine to DINOv3 (start → end) | rebuild MSE of 7 bands (end) | hours (B200) |")
 w("|---|---|---|---|---|")
 zero = None
-for f in sorted(glob.glob(os.path.join(a.students, "*.csv"))):
-    rows_ = list(csv.DictReader(open(f)))
-    n = os.path.basename(f)[:-4]
+STU = defaultdict(list)
+for row in csv.DictReader(open(RES("student_training_log.csv"))):
+    STU[row["student"]].append(row)
+assert len(STU) == 7, sorted(STU)
+for n in sorted(STU):
+    rows_ = STU[n]
     zero = float(rows_[-1]["val_rebuild_zero"])
     w(f"| {n} | {len(rows_)} epochs | {float(rows_[0]['val_cos']):.3f} → {float(rows_[-1]['val_cos']):.3f} | "
       f"{float(rows_[-1]['val_rebuild']):.4f} | {float(rows_[-1]['hours']):.3f} |")
@@ -276,7 +295,7 @@ w("")
 w("### 3.4 NDVI probe and grouping (fold 5; from `ndvi_probe_results.json`)")
 w("")
 st = probe["settings"]
-w(f"Ridge regression from field-average tokens to field NDVI (NIR − red)/(NIR + red), trained on fields")
+w("Ridge regression from field-average tokens to field NDVI (NIR − red)/(NIR + red), trained on fields")
 w(f"of folds 1–3, R² on fields of fold 5; {st['train_patches']} train and {st['test_patches']} test patches, up to")
 w(f"{st['max_fields']} fields per patch, fields ≥ {st['min_pixels']} px, cloudy field-dates skipped (mean blue > {st['cloud']}),")
 w("NIR + red < 0.05 skipped; 215,205 train rows and 208,829 test rows (field-dates).")
@@ -379,7 +398,7 @@ w("")
 w("### 4.3 Attention of the L-TAE (all dates, real dates; 3 seeds pooled; test fold)")
 w("")
 pa = att["pooled"]
-w(f"Attention of a date = mean over heads and the 16 × 16 tokens, × number of dates T (1 = equal share).")
+w("Attention of a date = mean over heads and the 16 × 16 tokens, × number of dates T (1 = equal share).")
 w(f"{pa['n_dates']} test dates over 3 runs; {100 * pa['share_cloudy']:.1f}% cloudy.")
 w("")
 w(f"- clear dates {pa['attention_clear']:.2f}, cloudy dates {pa['attention_cloudy']:.2f}")
@@ -390,7 +409,7 @@ w("- per seed (clear / cloudy / Spearman): " + "; ".join(
 mo = pa["attention_by_month_clear_only"]
 names = {9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec", 1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug"}
 w("- by calendar month, clear dates only: " + ", ".join(f"{names[int(k)]} {v:.2f}" for k, v in mo.items()))
-w("- figure: `fig_exp1_attention_ours.png`")
+w("- figure: `exp1_time/fig_attention_exp1.png`")
 w("")
 
 w("## 5. Reliance on dates: shuffled only at test time (Table 3)")
@@ -410,13 +429,13 @@ for r in rel["rows"]:
       f"{r['drop']:.2f} [{r['drop_ci95'][0]:.2f}, {r['drop_ci95'][1]:.2f}] | {dd} |")
 w("")
 per = defaultdict(list)
-for l in open(a.reliance_log):
+for l in open(RES("reliance", "log_run_reliance.txt")):
     m_ = re.match(r"(\S+)__ltae__real__train__s\d: real ([\d.]+) \(results.json ([\d.]+)\), shuffled at test ([\d.]+), drop ([\d.]+)", l)
     if m_:
         assert m_.group(2) == m_.group(3)
         per[m_.group(1).split("_s")[0] if m_.group(1).startswith("student") else m_.group(1)].append(float(m_.group(5)))
 assert sum(len(v) for v in per.values()) == 24
-w("Drop per run (from `run_reliance.log`): " + "; ".join(f"{k}: " + ", ".join(f"{x:.2f}" for x in v) for k, v in per.items()) + ".")
+w("Drop per run (from `reliance/log_run_reliance.txt`): " + "; ".join(f"{k}: " + ", ".join(f"{x:.2f}" for x in v) for k, v in per.items()) + ".")
 w("Every re-evaluated real-date score matched its results.json (24 of 24).")
 w("")
 w("External reference: the U-TAE repository README reports U-TAE at 63.1 mIoU, 83.2 OA on PASTIS")
@@ -445,12 +464,19 @@ for lab, x, y in (("mean all − one date", "mean all", "one date (July)"), ("me
                   ("L-TAE date: clear − all", "clear date", "all date")):
     w(f"| {lab} | {dif(MP, x, y):+.2f} | {dif(M1, x, y):+.2f} |")
 w("")
-s0 = lambda m: [d for d in P1[f"single_m{m:02d}"] if d["args"]["seed"] == 0][0]  # noqa: E731
+s0 = lambda m: [d for d in P1[f"single_m{m:02d}"] if d["seed"] == 0][0]  # noqa: E731
+jul = P1["single_m07"]
+assert len(jul) == 3
 w("Pair 1's code, one date per month (seed 0, val / test): " + ", ".join(
-    f"{names[m]} {s0(m)['val']['mIoU']:.1f} / {s0(m)['test']['mIoU']:.1f}" for m in range(1, 13))
-  + ". Best on val: July. (Their `final_table_exp1.md` lists July as the 3-seed mean, 31.1 / 30.8.)")
+    f"{names[m]} {s0(m)['val_miou']:.1f} / {s0(m)['test_miou']:.1f}" for m in range(1, 13))
+  + ". Best on val: July. (Their table `robustness_pair1_code/table_pair1_code.md` lists July as the "
+  + f"3-seed mean, {np.mean([d['val_miou'] for d in jul]):.1f} / {np.mean([d['test_miou'] for d in jul]):.1f}.)")
 w("")
-w("Pair 1's code, attention (L-TAE all dates, date, seed 0, test): clear 1.17, cloudy 0.27, Spearman −0.44")
+pat = open(RES("robustness_pair1_code", "attention_pair1_code.txt")).read()
+gx = lambda rx: float(re.search(rx, pat).group(1))  # noqa: E731
+w(f"Pair 1's code, attention (L-TAE all dates, date, seed 0, test): clear {gx(r'clear dates:\s+([\d.]+)'):.2f}, "
+  f"cloudy {gx(r'cloudy dates:\s+([\d.]+)'):.2f}, Spearman "
+  + f"{gx(r'Spearman[^:]*:\s+(-?[\d.]+)'):.2f}".replace("-", "−"))
 w("(from their attention script; per-month numbers not kept).")
 w("")
 
@@ -523,8 +549,9 @@ w("   the run counts, that the 6 linked DINOv3 runs in Table 1 equal the Experim
 w("   setting names match the table the job made.")
 w("2. Independently recomputed by hand-written one-off checks and compared with the files the jobs")
 w("   wrote: `final_summary.csv` (all 32 rows match to 0.01), `final_summary_by_student_seed.csv`,")
-w("   `table_exp1_ours.md`, `final_table_exp1.md` (Pair 1 code), `date_reliance.txt` and `run_reliance.log`.")
-w("3. A second copy of the 96 Experiment 2 results (`ucloud_results_backup.zip`) gives identical numbers.")
+w("   `exp1_time/table_exp1.md`, `robustness_pair1_code/table_pair1_code.md`, `reliance/date_reliance.txt`")
+w("   and `reliance/log_run_reliance.txt`.")
+w("3. A second, separately downloaded copy of the 96 Experiment 2 run files gives identical numbers.")
 w("4. Text numbers in section 9 are read from the same data, not typed.")
 open(a.out, "w").write("\n".join(L) + "\n")
 print("wrote", a.out, len(L), "lines")

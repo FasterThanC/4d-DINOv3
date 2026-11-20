@@ -11,8 +11,9 @@ jobs wrote (not typed by hand). The per-run files are collected in `exp2_runs.js
 - **mean ± std**: std is over seeds, population std (`np.std`, ddof = 0) in every table of this
   project (our code and Pair 1's code). With ddof = 1 it would be about 1.22× larger.
 - **95% CI**: paired bootstrap over the 496 test series (1000 resamples, seed 0). Seeds are pooled by
-  summing their confusion matrices, so the CI point ("pooled") can differ by ±0.05 from the
-  difference of the seed means. Use the CI line when you give a CI, the table means otherwise.
+  summing their confusion matrices, so the CI point ("pooled") is not always equal to the
+  difference of the seed means: at most 0.03 apart in Table 1, 0.01 in Table 2 with 100% labels,
+  0.09 with 10% labels. Use the CI line when you give a CI, the table means otherwise.
 - Rounding: tables to 1 decimal, differences to 2 decimals (or 1 in text).
 - Two meanings of "shuffled dates" — keep them apart in the text:
   1. **trained with shuffled dates** (Tables 1 and 2): each image gets another image's date in

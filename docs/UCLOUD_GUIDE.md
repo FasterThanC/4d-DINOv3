@@ -1,7 +1,9 @@
-# Running Pair 2 on UCloud: step by step
+# Running the project on UCloud: step by step
 
-Three UCloud jobs, all with the **Terminal** app (Ubuntu). Each one is started from
-Apps → Terminal → fill in the form → Submit.
+All jobs use the **Terminal** app (Ubuntu). Each one is started from Apps → Terminal → fill in the
+form → Submit. Jobs A–C (sections 1–3) set everything up and make the first results; the later
+rounds (sections 3b and 3c) use the same batch form with other **Extra options**. The same commands
+also work on any Linux GPU machine: see "How to run" in the README.
 
 | Job | What | Machine type | Hours to set | Cost (about) |
 | --- | --- | --- | --- | --- |
@@ -12,8 +14,9 @@ Apps → Terminal → fill in the form → Submit.
 Rule: **job C is started only after job B prints `PREFLIGHT PASSED`** and you have looked at its two
 pictures. `run_all.sh` refuses to start otherwise.
 
-The GPU hours on the dashboard (1,331 left of 7K) are shared by the whole project, so do not leave
-GPU jobs open when nothing runs.
+The GPU hours of a UCloud project are shared by all its members, so do not leave GPU jobs open when
+nothing runs. The whole project used about 8.2 hours on one B200 plus a little on small slices
+(times in the README).
 
 ---
 
@@ -24,9 +27,10 @@ GPU jobs open when nothing runs.
    - https://huggingface.co/facebook/dinov3-vitl16-pretrain-sat493m
    - https://huggingface.co/facebook/dinov3-vits16-pretrain-lvd1689m
 2. Hugging Face → Settings → Access Tokens → create a **Read** token. Keep it for job A.
-3. In UCloud → Files (your Member Files, next to `DDD_PersonB`): **Create folder** `4d-dino-data`.
-4. Open `4d-dino-data` and **Upload files**: `4d-dino-code.zip` (the code, in
-   `upload_to_ucloud/` in your assignment folder).
+3. In UCloud → Files (your Member Files): **Create folder** `4d-dino-data`.
+4. The code goes into `4d-dino-data/code`: either clone it in job A (below), or download this
+   repository from GitHub (Code → Download ZIP), upload the ZIP to `4d-dino-data` and unzip it in
+   job A with `unzip -q 4d-DINOv3-main.zip && mv 4d-DINOv3-main code`.
 
 The folder name matters: the scripts expect `/work/4d-dino-data`. If you use another name, type
 `export DATA_DIR=/work/<name>` in every new terminal before the commands below.
@@ -38,7 +42,7 @@ Folder #1 → `4d-dino-data`, Enable tmux → `On`. Submit, wait until it runs, 
 
 ```bash
 cd /work/4d-dino-data
-unzip -q -o 4d-dino-code.zip -d code || python3 -m zipfile -e 4d-dino-code.zip code
+git clone https://github.com/FasterThanC/4d-DINOv3.git code    # or unzip the uploaded ZIP (step 0.4)
 cd code
 bash ucloud/00_setup.sh                    # ~5 min: Python 3.12 + packages into /work/4d-dino-data
 source ucloud/config.sh && hf auth login   # paste the Read token; answer "n" to the git question
@@ -124,42 +128,58 @@ their last epoch).
 Same form as job C, with **Extra options** `RUN=final PARALLEL=8`. It runs `ucloud/run_final.sh`
 (NDVI probe again, 2 more training seeds of each student + student 3, L-TAE with 15,000 steps on all
 8 feature sets). Log: `runs/logs/run_final.log`; results in `runs/temporal_final/` and
-`runs/logs/comparisons_final.log`. Before starting it, upload the new code zip and unzip it over
-`code` in a short CPU terminal job: `cd /work/4d-dino-data && unzip -q -o <zip> -d code`.
+`runs/logs/comparisons_final.log`. Before starting it, make sure `code` has the current version
+(`cd /work/4d-dino-data/code && git pull`, or unzip a new ZIP over it) in a short CPU terminal job.
 
 ## 3c. Experiment 1 and the date tests (final round, Nov 5)
 
-Same batch form as job C (1 B200 unless noted), only **Extra options** changes. Upload the current
-code zip and unzip it over `code` first. Every job is restartable (finished runs are skipped).
+Same batch form as job C (1 B200 unless noted), only **Extra options** changes. Update `code` to
+the current version first (as in 3b). Every job is restartable (finished runs are skipped).
+The `RUN=pair1` job needs Pair 1's code in the folder `exp1` next to `code`. Copy it once in a
+terminal:
+
+```bash
+mkdir -p /work/4d-dino-data/exp1 && cp -r /work/4d-dino-data/code/exp1_pair1_code/. /work/4d-dino-data/exp1/
+```
+
 
 | Extra options | Script | What it does | Time on 1 B200 |
 | --- | --- | --- | --- |
 | `RUN=exp1 PARALLEL=8` | `ucloud/run_exp1.sh` | Experiment 1 (Time) with our code and the Experiment 2 settings: one date per calendar month (best month on fold 4, then 3 seeds), mean of all / cloud-free dates, L-TAE {all, cloud-free} x {none, position, date, both}, shuffled dates (reused from Experiment 2); table with 95% CIs; attention analysis. Ends with `EXP1 OURS DONE`. | 1 h 05 min |
 | `RUN=reliance` (smallest slice is enough) | `ucloud/run_reliance.sh` | Models trained with real dates, tested with real and with shuffled dates: official pre-trained U-TAE (downloaded from Zenodo 5172293, md5-checked) and our 24 L-TAE runs. Ends with `RELIANCE DONE`. | about 5 min |
-| `RUN=pair1 PARALLEL=6` | `ucloud/run_pair1.sh` | Robustness check: Pair 1's own code (folder `exp1` next to `code`, from `exp1_pair1_code/`) over the same 47 settings, with the L-TAE padding fix (`pair1_kit/`). Ends with `PAIR1 DONE`. | 2 h 42 min |
+| `RUN=pair1 PARALLEL=6` | `ucloud/run_pair1.sh` | Robustness check: Pair 1's own code (folder `exp1`, copied as above) over the same 47 settings, with the L-TAE padding fix (`pair1_kit/ltae.py` is copied over their `src/backbones/ltae.py`; the original is kept as `ltae_official_backup.py`). Ends with `PAIR1 DONE (FRESH)`. | 2 h 42 min |
 
 Results: `runs/exp1_ours/`, `runs/reliance/`, `exp1/runs_final/` (logs in `runs/logs/`).
 The copies used in the report are in `results/` of this repository.
 
 ## 4. Results
 
-All in `4d-dino-data/runs/`:
-- `summary_temporal.csv`: mIoU / OA / field accuracy per feature set x dates x labels (mean ± std of 3 seeds)
-- `logs/comparisons.log`: the answers to the research question with 95% CIs (README: "How the
-  results answer the question")
-- `probe/probe_results.json`, `probe/fig_ndvi_season.png`: NDVI probe
+The final results are in `4d-dino-data/runs/` (and Pair 1's code runs in `4d-dino-data/exp1/`):
+- `temporal_final/summary.csv`, `summary_by_student_seed.csv` and `logs/comparisons_final.log`:
+  Table 2 with 95% CIs (`summary_temporal.csv` and `logs/comparisons.log` are from the first,
+  shorter round and are not used)
+- `probe/probe_results.json`, `probe/fig_ndvi_season.png`: NDVI probe; `benchmark.json`: size and speed
 - `students/*/log.csv`: student training curves
-- `benchmark.json`: size and speed
+- `exp1_ours/`: Table 1; `reliance/` and `logs/date_reliance.txt`: Table 3; `exp1/final_table_exp1.md`:
+  robustness run
 
-Download them (select → Download) and put them in the report.
+To copy them into `results/` of the repository (in a terminal on the data folder):
+
+```bash
+cd /work/4d-dino-data/code && source ucloud/config.sh
+python scripts/collect_results.py && python scripts/make_numbers_reference.py
+```
+
+Then download `code/results/` (select → Download).
 
 ## 5. Notes
 
 - Do not run two jobs that write to `4d-dino-data` at the same time.
-- Disk use: PASTIS ~70 GB (40 GB after deleting the zip), DINOv3 tokens ~55 GB, each student ~20 GB,
-  Python ~12 GB (`uv-cache` can be deleted after setup).
+- Disk use, about 260 GB in total: PASTIS ~70 GB during the download (~40 GB after deleting the
+  zip), DINOv3 tokens 57 GB, each of the 7 student token sets about 21 GB, Python ~12 GB
+  (`uv-cache` can be deleted after setup).
 - Pair 1 needs `code/splits.json` and the DINOv3 tokens (`features/dinov3_sat`). Member Files are
   private to you; to share, copy them to a folder the whole group can access (ask the TA how groups
   share files in this project), or Pair 1 runs `bash ucloud/02_extract_teacher.sh` on their side.
-- Optional extra runs (only if time and GPU hours allow), in a terminal on a GPU job:
-  `bash ucloud/03_train_students.sh student3` (rebuild only) and `student2_seed1`.
+- Single students can also be trained by hand in a terminal on a GPU job, e.g.
+  `bash ucloud/03_train_students.sh student3` (rebuild only); the final round already trains all of them.
